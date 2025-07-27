@@ -1,3 +1,4 @@
+
 export const financingBySectorData = [
   { sector: "Renewable Energy", financing: 12500000 },
   { sector: "Water Management", financing: 8200000 },
@@ -80,7 +81,7 @@ const projectsForClient2 = [
 export const mockClientData = [
   { 
     id: 1, 
-    companyName: "حلول التكنولوجيا الخضراء", 
+    companyName: "Green Tech Solutions", 
     sector: "خاص",
     unifiedCommercialRegNo: "123456789012345678", 
     companyType: "صناعي", 
@@ -92,7 +93,7 @@ export const mockClientData = [
   },
   { 
     id: 2, 
-    companyName: "أكوا بيور المحدودة", 
+    companyName: "Aqua Pure Ltd.", 
     sector: "خاص",
     unifiedCommercialRegNo: "234567890123456789", 
     companyType: "خدمي", 
@@ -104,7 +105,7 @@ export const mockClientData = [
   },
   { 
     id: 3, 
-    companyName: "شركة المخلفات الحيوية", 
+    companyName: "Bio-Waste Company", 
     sector: "خاص",
     unifiedCommercialRegNo: "345678901234567890", 
     companyType: "صناعي", 
@@ -116,7 +117,7 @@ export const mockClientData = [
   },
   { 
     id: 4, 
-    companyName: "إيديو فانتاج", 
+    companyName: "Edu-Vantage", 
     sector: "خاص",
     unifiedCommercialRegNo: "456789012345678901", 
     companyType: "خدمي", 
@@ -128,7 +129,7 @@ export const mockClientData = [
   },
   { 
     id: 5, 
-    companyName: "مزارع أجري إينوفيت", 
+    companyName: "Agri-Innovate Farms", 
     sector: "خاص",
     unifiedCommercialRegNo: "567890123456789012", 
     companyType: "مقاول", 
@@ -140,7 +141,7 @@ export const mockClientData = [
   },
   { 
     id: 6, 
-    companyName: "مستشفيات ميديكير", 
+    companyName: "Medicare Hospitals", 
     sector: "عام",
     unifiedCommercialRegNo: "678901234567890123", 
     companyType: "خدمي", 
