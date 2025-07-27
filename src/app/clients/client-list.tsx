@@ -31,6 +31,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { format } from "date-fns";
+import { ar } from 'date-fns/locale';
 
 type Project = {
     id: number;
@@ -48,7 +49,7 @@ type Project = {
     environmentalSocialClassification: string;
     classificationMethod: string;
     impactIndicators: string;
-    status: 'Active' | 'Completed';
+    status: 'نشيط' | 'مكتمل';
 };
 
 type Client = {
@@ -72,9 +73,9 @@ interface ClientListProps {
 export function ClientList({ clients }: ClientListProps) {
   const [filters, setFilters] = useState({
     companyName: '',
-    sector: 'All',
-    companyType: 'All',
-    companySize: 'All',
+    sector: 'الكل',
+    companyType: 'الكل',
+    companySize: 'الكل',
   });
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
 
@@ -85,9 +86,9 @@ export function ClientList({ clients }: ClientListProps) {
   const handleResetFilters = () => {
     setFilters({
         companyName: '',
-        sector: 'All',
-        companyType: 'All',
-        companySize: 'All',
+        sector: 'الكل',
+        companyType: 'الكل',
+        companySize: 'الكل',
     })
   }
 
@@ -95,16 +96,16 @@ export function ClientList({ clients }: ClientListProps) {
     return clients.filter(client => {
       return (
         (client.companyName.toLowerCase().includes(filters.companyName.toLowerCase())) &&
-        (filters.sector === 'All' || client.sector === filters.sector) &&
-        (filters.companyType === 'All' || client.companyType === filters.companyType) &&
-        (filters.companySize === 'All' || client.companySize === filters.companySize)
+        (filters.sector === 'الكل' || client.sector === filters.sector) &&
+        (filters.companyType === 'الكل' || client.companyType === filters.companyType) &&
+        (filters.companySize === 'الكل' || client.companySize === filters.companySize)
       );
     });
   }, [clients, filters]);
   
-  const sectors = ['All', ...Array.from(new Set(clients.map(c => c.sector)))];
-  const companyTypes = ['All', ...Array.from(new Set(clients.map(c => c.companyType)))];
-  const companySizes = ['All', ...Array.from(new Set(clients.map(c => c.companySize)))];
+  const sectors = ['الكل', ...Array.from(new Set(clients.map(c => c.sector)))];
+  const companyTypes = ['الكل', ...Array.from(new Set(clients.map(c => c.companyType)))];
+  const companySizes = ['الكل', ...Array.from(new Set(clients.map(c => c.companySize)))];
 
   const handleRowClick = (client: Client) => {
     setSelectedClient(client);
@@ -116,17 +117,17 @@ export function ClientList({ clients }: ClientListProps) {
 
   return (
     <>
-      <div className="space-y-4" dir="rtl">
+      <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 p-4 border rounded-lg bg-card">
           <Input
-            placeholder="تصفية حسب اسم الشركة..."
+            placeholder="Filter by Company Name..."
             value={filters.companyName}
             onChange={e => handleFilterChange('companyName', e.target.value)}
             className="lg:col-span-2"
           />
           <Select value={filters.companyType} onValueChange={value => handleFilterChange('companyType', value)}>
             <SelectTrigger>
-              <SelectValue placeholder="تصفية حسب النوع" />
+              <SelectValue placeholder="Filter by Type" />
             </SelectTrigger>
             <SelectContent>
               {companyTypes.map(type => <SelectItem key={type} value={type}>{type}</SelectItem>)}
@@ -134,23 +135,23 @@ export function ClientList({ clients }: ClientListProps) {
           </Select>
           <Select value={filters.companySize} onValueChange={value => handleFilterChange('companySize', value)}>
             <SelectTrigger>
-              <SelectValue placeholder="تصفية حسب الحجم" />
+              <SelectValue placeholder="Filter by Size" />
             </SelectTrigger>
             <SelectContent>
               {companySizes.map(size => <SelectItem key={size} value={size}>{size}</SelectItem>)}
             </SelectContent>
           </Select>
-          <Button onClick={handleResetFilters} variant="outline">إعادة تعيين الفلاتر</Button>
+          <Button onClick={handleResetFilters} variant="outline">Reset Filters</Button>
         </div>
         <div className="border rounded-lg">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>اسم الشركة</TableHead>
-                <TableHead>قطاع</TableHead>
-                <TableHead>رقم التسجيل</TableHead>
-                <TableHead>نوع الشركة</TableHead>
-                <TableHead>حجم الشركة</TableHead>
+                <TableHead>Company Name</TableHead>
+                <TableHead>Sector</TableHead>
+                <TableHead>Registration No.</TableHead>
+                <TableHead>Company Type</TableHead>
+                <TableHead>Company Size</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -167,7 +168,7 @@ export function ClientList({ clients }: ClientListProps) {
               ) : (
                 <TableRow>
                   <TableCell colSpan={5} className="h-24 text-center">
-                    لا توجد نتائج.
+                    No results found.
                   </TableCell>
                 </TableRow>
               )}
@@ -232,10 +233,10 @@ export function ClientList({ clients }: ClientListProps) {
                     <h4 className="font-semibold text-lg">ملخص مالي</h4>
                      <div className="grid grid-cols-2 items-center gap-x-4 gap-y-2 text-sm">
                         <div className="text-muted-foreground">إجمالي التمويل</div>
-                        <div>EGP {totalFinancing(selectedClient.projects).toLocaleString()}</div>
+                        <div>{totalFinancing(selectedClient.projects).toLocaleString()} جنيه مصري</div>
                         
                         <div className="text-muted-foreground">المشاريع النشطة</div>
-                        <div>{selectedClient.projects.filter(p => p.status === 'Active').length}</div>
+                        <div>{selectedClient.projects.filter(p => p.status === 'نشيط').length}</div>
                      </div>
                 </div>
 
@@ -250,7 +251,7 @@ export function ClientList({ clients }: ClientListProps) {
                         <div key={project.id} className="p-4 border rounded-lg bg-card space-y-4">
                             <div className="flex justify-between items-start">
                                 <h5 className="font-semibold">مشروع #{index + 1}: {project.purposeOfFinancing}</h5>
-                                <Badge variant={project.status === 'Active' ? 'default' : 'secondary'}>{project.status === 'Active' ? 'نشيط' : 'مكتمل'}</Badge>
+                                <Badge variant={project.status === 'نشيط' ? 'default' : 'secondary'}>{project.status}</Badge>
                             </div>
 
                             <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
@@ -266,7 +267,7 @@ export function ClientList({ clients }: ClientListProps) {
                                 <div className="text-muted-foreground">استعمال</div>
                                 <div>{project.usageType}</div>
                                 <div className="text-muted-foreground">تاريخ الموافقة</div>
-                                <div>{format(project.dateOfCreditApproval, "PPP")}</div>
+                                <div>{format(project.dateOfCreditApproval, "PPP", { locale: ar })}</div>
                                 {project.fundedUnderInitiative && <>
                                     <div className="text-muted-foreground">مبادرة</div>
                                     <div>{project.fundedUnderInitiative}</div>
