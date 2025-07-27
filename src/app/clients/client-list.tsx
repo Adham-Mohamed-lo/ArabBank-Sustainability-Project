@@ -116,17 +116,17 @@ export function ClientList({ clients }: ClientListProps) {
 
   return (
     <>
-      <div className="space-y-4">
+      <div className="space-y-4" dir="rtl">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 p-4 border rounded-lg bg-card">
           <Input
-            placeholder="Filter by company name..."
+            placeholder="تصفية حسب اسم الشركة..."
             value={filters.companyName}
             onChange={e => handleFilterChange('companyName', e.target.value)}
             className="lg:col-span-2"
           />
           <Select value={filters.companyType} onValueChange={value => handleFilterChange('companyType', value)}>
             <SelectTrigger>
-              <SelectValue placeholder="Filter by Type" />
+              <SelectValue placeholder="تصفية حسب النوع" />
             </SelectTrigger>
             <SelectContent>
               {companyTypes.map(type => <SelectItem key={type} value={type}>{type}</SelectItem>)}
@@ -134,23 +134,23 @@ export function ClientList({ clients }: ClientListProps) {
           </Select>
           <Select value={filters.companySize} onValueChange={value => handleFilterChange('companySize', value)}>
             <SelectTrigger>
-              <SelectValue placeholder="Filter by Size" />
+              <SelectValue placeholder="تصفية حسب الحجم" />
             </SelectTrigger>
             <SelectContent>
               {companySizes.map(size => <SelectItem key={size} value={size}>{size}</SelectItem>)}
             </SelectContent>
           </Select>
-          <Button onClick={handleResetFilters} variant="outline">Reset Filters</Button>
+          <Button onClick={handleResetFilters} variant="outline">إعادة تعيين الفلاتر</Button>
         </div>
         <div className="border rounded-lg">
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Company Name</TableHead>
-                <TableHead>Sector</TableHead>
-                <TableHead>Registration No.</TableHead>
-                <TableHead>Company Type</TableHead>
-                <TableHead>Company Size</TableHead>
+                <TableHead>اسم الشركة</TableHead>
+                <TableHead>قطاع</TableHead>
+                <TableHead>رقم التسجيل</TableHead>
+                <TableHead>نوع الشركة</TableHead>
+                <TableHead>حجم الشركة</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -167,7 +167,7 @@ export function ClientList({ clients }: ClientListProps) {
               ) : (
                 <TableRow>
                   <TableCell colSpan={5} className="h-24 text-center">
-                    No results found.
+                    لا توجد نتائج.
                   </TableCell>
                 </TableRow>
               )}
@@ -182,29 +182,29 @@ export function ClientList({ clients }: ClientListProps) {
               <SheetHeader>
                 <SheetTitle>{selectedClient.companyName}</SheetTitle>
                 <SheetDescription>
-                  Detailed information for {selectedClient.companyName}.
+                  معلومات مفصلة لـ {selectedClient.companyName}.
                 </SheetDescription>
               </SheetHeader>
               <ScrollArea className="h-[calc(100vh-8rem)]">
-              <div className="grid gap-6 py-6 pr-6">
+              <div className="grid gap-6 py-6 pr-6" dir="rtl">
                 
                 {/* Client Details Section */}
                 <div className="space-y-4">
-                    <h4 className="font-semibold text-lg">Client Details</h4>
+                    <h4 className="font-semibold text-lg">تفاصيل العميل</h4>
                     <div className="grid grid-cols-2 items-center gap-x-4 gap-y-2 text-sm">
-                        <div className="text-muted-foreground">Sector</div>
+                        <div className="text-muted-foreground">القطاع</div>
                         <div>{selectedClient.sector}</div>
 
-                        <div className="text-muted-foreground">Registration No.</div>
+                        <div className="text-muted-foreground">رقم التسجيل</div>
                         <div>{selectedClient.unifiedCommercialRegNo}</div>
                         
-                        <div className="text-muted-foreground">Company Type</div>
+                        <div className="text-muted-foreground">نوع الشركة</div>
                         <div><Badge variant="secondary">{selectedClient.companyType}</Badge></div>
 
-                        <div className="text-muted-foreground">Company Size</div>
+                        <div className="text-muted-foreground">حجم الشركة</div>
                         <div><Badge>{selectedClient.companySize}</Badge></div>
 
-                        <div className="text-muted-foreground">ISIC Code L4</div>
+                        <div className="text-muted-foreground">رمز ISIC L4</div>
                         <div>{selectedClient.isicCodeL4}</div>
                     </div>
                 </div>
@@ -213,12 +213,12 @@ export function ClientList({ clients }: ClientListProps) {
                 
                 {/* Contact Info Section */}
                 <div className="space-y-4">
-                    <h4 className="font-semibold text-lg">Contact Information</h4>
+                    <h4 className="font-semibold text-lg">معلومات الاتصال</h4>
                     <div className="grid grid-cols-2 items-center gap-x-4 gap-y-2 text-sm">
-                        <div className="text-muted-foreground">Contact Person</div>
+                        <div className="text-muted-foreground">الشخص المسؤول</div>
                         <div>{selectedClient.contactPerson}</div>
 
-                        <div className="text-muted-foreground">Contact Email</div>
+                        <div className="text-muted-foreground">البريد الإلكتروني</div>
                         <a href={`mailto:${selectedClient.contactEmail}`} className="text-primary hover:underline">
                             {selectedClient.contactEmail}
                         </a>
@@ -229,12 +229,12 @@ export function ClientList({ clients }: ClientListProps) {
 
                 {/* Financial Summary Section */}
                 <div className="space-y-4">
-                    <h4 className="font-semibold text-lg">Financial Summary</h4>
+                    <h4 className="font-semibold text-lg">ملخص مالي</h4>
                      <div className="grid grid-cols-2 items-center gap-x-4 gap-y-2 text-sm">
-                        <div className="text-muted-foreground">Total Financing</div>
+                        <div className="text-muted-foreground">إجمالي التمويل</div>
                         <div>EGP {totalFinancing(selectedClient.projects).toLocaleString()}</div>
                         
-                        <div className="text-muted-foreground">Active Projects</div>
+                        <div className="text-muted-foreground">المشاريع النشطة</div>
                         <div>{selectedClient.projects.filter(p => p.status === 'Active').length}</div>
                      </div>
                 </div>
@@ -243,59 +243,59 @@ export function ClientList({ clients }: ClientListProps) {
 
                 {/* Projects Section */}
                 <div className="space-y-4">
-                  <h4 className="font-semibold text-lg">Projects</h4>
+                  <h4 className="font-semibold text-lg">المشاريع</h4>
                   {selectedClient.projects.length > 0 ? (
                     <div className="space-y-6">
                       {selectedClient.projects.map((project, index) => (
                         <div key={project.id} className="p-4 border rounded-lg bg-card space-y-4">
                             <div className="flex justify-between items-start">
-                                <h5 className="font-semibold">Project #{index + 1}: {project.purposeOfFinancing}</h5>
-                                <Badge variant={project.status === 'Active' ? 'default' : 'secondary'}>{project.status}</Badge>
+                                <h5 className="font-semibold">مشروع #{index + 1}: {project.purposeOfFinancing}</h5>
+                                <Badge variant={project.status === 'Active' ? 'default' : 'secondary'}>{project.status === 'Active' ? 'نشيط' : 'مكتمل'}</Badge>
                             </div>
 
                             <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
-                                <div className="text-muted-foreground col-span-2 font-medium">Financing Details</div>
-                                <div className="text-muted-foreground">Total Amount</div>
+                                <div className="text-muted-foreground col-span-2 font-medium">تفاصيل التمويل</div>
+                                <div className="text-muted-foreground">المبلغ الإجمالي</div>
                                 <div>{project.currency} {project.totalFinancingAmount.toLocaleString()}</div>
-                                <div className="text-muted-foreground">Amount Used</div>
+                                <div className="text-muted-foreground">المبلغ المستخدم</div>
                                 <div>{project.currency} {project.amountUsed.toLocaleString()}</div>
-                                <div className="text-muted-foreground">Type of Facility</div>
+                                <div className="text-muted-foreground">نوع التسهيل</div>
                                 <div>{project.typeOfFacility}</div>
-                                <div className="text-muted-foreground">Classification</div>
+                                <div className="text-muted-foreground">تصنيف</div>
                                 <div>{project.facilityClassification}</div>
-                                <div className="text-muted-foreground">Usage</div>
+                                <div className="text-muted-foreground">استعمال</div>
                                 <div>{project.usageType}</div>
-                                <div className="text-muted-foreground">Approval Date</div>
+                                <div className="text-muted-foreground">تاريخ الموافقة</div>
                                 <div>{format(project.dateOfCreditApproval, "PPP")}</div>
                                 {project.fundedUnderInitiative && <>
-                                    <div className="text-muted-foreground">Initiative</div>
+                                    <div className="text-muted-foreground">مبادرة</div>
                                     <div>{project.fundedUnderInitiative}</div>
                                 </>}
 
-                                <div className="text-muted-foreground col-span-2 font-medium mt-4">Sustainability Details</div>
-                                <div className="text-muted-foreground">Axis</div>
+                                <div className="text-muted-foreground col-span-2 font-medium mt-4">تفاصيل الاستدامة</div>
+                                <div className="text-muted-foreground">محور</div>
                                 <div>{project.sustainabilityAxis}</div>
-                                <div className="text-muted-foreground">E/S Classification</div>
+                                <div className="text-muted-foreground">التصنيف البيئي/الاجتماعي</div>
                                 <div>{project.environmentalSocialClassification}</div>
-                                 <div className="text-muted-foreground">Classification Method</div>
+                                 <div className="text-muted-foreground">طريقة التصنيف</div>
                                 <div>{project.classificationMethod}</div>
-                                <div className="text-muted-foreground">Consultant Used</div>
-                                <div>{project.environmentalConsultantUsed ? 'Yes' : 'No'}</div>
-                                <div className="text-muted-foreground col-span-2">Impact Indicators</div>
+                                <div className="text-muted-foreground">استشاري مستخدم</div>
+                                <div>{project.environmentalConsultantUsed ? 'نعم' : 'لا'}</div>
+                                <div className="text-muted-foreground col-span-2">مؤشرات الأثر</div>
                                 <div className="col-span-2">{project.impactIndicators}</div>
                             </div>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <div className="text-sm text-muted-foreground">No projects found for this client.</div>
+                    <div className="text-sm text-muted-foreground">لم يتم العثور على مشاريع لهذا العميل.</div>
                   )}
                 </div>
               </div>
               </ScrollArea>
               <SheetFooter className="pr-6">
                 <SheetClose asChild>
-                  <Button type="submit">Close</Button>
+                  <Button type="submit">إغلاق</Button>
                 </SheetClose>
               </SheetFooter>
             </>
