@@ -1,0 +1,461 @@
+"use client";
+
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { newProjectSchema, type NewProjectFormValues } from "@/lib/schemas";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { InfoTooltip } from "@/components/info-tooltip";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { CalendarIcon, Loader2, Lightbulb } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { format } from "date-fns";
+import { Switch } from "@/components/ui/switch";
+import { getIndicatorSuggestions } from "@/lib/actions";
+import React, { useState, useEffect, useCallback } from "react";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useToast } from "@/hooks/use-toast";
+
+const formFieldsInfo = {
+  companyName: { en: "Full legal name of the company receiving financing.", ar: "الاسم القانوني الكامل للشركة المستفيدة من التمويل." },
+  unifiedCommercialRegNo: { en: "18-digit identifier (12 for registration, 3 for office, 3 for governorate).", ar: "معرف مكون من 18 رقمًا (12 للتسجيل، 3 للمكتب، 3 للمحافظة)." },
+  companyType: { en: "Choose the company's primary operational category.", ar: "اختر الفئة التشغيلية الأساسية للشركة." },
+  sector: { en: "Specify if the company is a public or private entity.", ar: "حدد ما إذا كانت الشركة كيانًا عامًا أم خاصًا." },
+  companySize: { en: "Classification based on Central Bank of Egypt (CBE) definitions.", ar: "التصنيف بناءً على تعريفات البنك المركزي المصري." },
+  isicCodeL4: { en: "International Standard Industrial Classification code for the business activity.", ar: "رمز التصنيف الصناعي الدولي الموحد للنشاط التجاري." },
+  totalFinancingAmount: { en: "The total amount approved under the credit agreement.", ar: "المبلغ الإجمالي المعتمد بموجب اتفاقية الائتمان." },
+  amountUsed: { en: "The portion of financing that has been disbursed to date.", ar: "الجزء من التمويل الذي تم صرفه حتى تاريخه." },
+  currency: { en: "Select the currency of the financing.", ar: "اختر عملة التمويل." },
+  typeOfFacility: { en: "The term length of the financial facility.", ar: "مدة التسهيل المالي." },
+  facilityClassification: { en: "Current status of the facility's performance.", ar: "الحالة الحالية لأداء التسهيل." },
+  usageType: { en: "Specify the status of the facility usage.", ar: "حدد حالة استخدام التسهيل." },
+  dateOfCreditApproval: { en: "The official start date of the credit contract.", ar: "تاريخ البدء الرسمي لعقد الائتمان." },
+  fundedUnderInitiative: { en: "e.g., GEFF, EPAP, CBE initiative, etc.", ar: "مثال: GEFF، EPAP، مبادرة البنك المركزي، إلخ." },
+  environmentalConsultantUsed: { en: "Was a certified environmental consultant used to assess the project?", ar: "هل تم استخدام استشاري بيئي معتمد لتقييم المشروع؟" },
+  sustainabilityAxis: { en: "Select the primary sustainability category for the project.", ar: "اختر فئة الاستدامة الرئيسية للمشروع." },
+  purposeOfFinancing: { en: "State the direct use of the financing as per credit approval.", ar: "اذكر الاستخدام المباشر للتمويل حسب موافقة الائتمان." },
+  environmentalSocialClassification: { en: "Is the project environmental, social, or both?", ar: "هل المشروع بيئي أم اجتماعي أم كلاهما؟" },
+  classificationMethod: { en: "Classification based on company activity or specific project type.", ar: "التصنيف بناءً على نشاط الشركة أو نوع المشروع المحدد." },
+  impactIndicators: { en: "e.g., “Reduce CO₂ by 10%”, “Save 5,000 m³ water per year”, etc.", ar: "مثال: 'تقليل ثاني أكسيد الكربون بنسبة 10٪'، 'توفير 5000 متر مكعب من المياه سنويًا'، إلخ." },
+  supportingDocuments: { en: "Upload supporting documents (PDF, Excel, etc.).", ar: "قم بتحميل المستندات الداعمة (PDF ، Excel ، إلخ)." },
+};
+
+const DEBOUNCE_DELAY = 1000;
+const LOCAL_STORAGE_KEY = "newProjectFormDraft";
+
+export function AddProjectForm() {
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
+  const { toast } = useToast();
+
+  const form = useForm<NewProjectFormValues>({
+    resolver: zodResolver(newProjectSchema),
+    defaultValues: {
+      companyName: "",
+      unifiedCommercialRegNo: "",
+      isicCodeL4: "",
+      totalFinancingAmount: 0,
+      amountUsed: 0,
+      fundedUnderInitiative: "",
+      environmentalConsultantUsed: false,
+      sustainabilityAxis: "",
+      purposeOfFinancing: "",
+      impactIndicators: "",
+    },
+  });
+
+  const watchedValues = form.watch();
+
+  const handleFetchSuggestions = useCallback(async () => {
+    const { sector, purposeOfFinancing } = form.getValues();
+    if (sector && purposeOfFinancing) {
+      setIsLoadingSuggestions(true);
+      setSuggestions([]);
+      const result = await getIndicatorSuggestions({ sector, purposeOfFinancing });
+      setSuggestions(result);
+      setIsLoadingSuggestions(false);
+    }
+  }, [form]);
+
+  useEffect(() => {
+    try {
+      const draft = localStorage.getItem(LOCAL_STORAGE_KEY);
+      if (draft) {
+        const draftValues = JSON.parse(draft);
+        // Date needs to be converted back from string
+        if (draftValues.dateOfCreditApproval) {
+            draftValues.dateOfCreditApproval = new Date(draftValues.dateOfCreditApproval);
+        }
+        form.reset(draftValues);
+      }
+    } catch (error) {
+        console.error("Failed to load draft from local storage", error);
+    }
+  }, [form]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+        try {
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(watchedValues));
+        } catch(error) {
+            console.error("Failed to save draft to local storage", error);
+        }
+    }, DEBOUNCE_DELAY);
+
+    return () => clearTimeout(timer);
+  }, [watchedValues]);
+
+  function onSubmit(values: NewProjectFormValues) {
+    console.log(values);
+    toast({
+      title: "Project Submitted",
+      description: "The new project data has been sent to Head Office.",
+    });
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    form.reset();
+  }
+  
+  function onSaveDraft() {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(form.getValues()));
+    toast({
+      title: "Draft Saved",
+      description: "Your progress has been saved locally.",
+    });
+  }
+
+  return (
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <Accordion type="multiple" defaultValue={["item-1", "item-2", "item-3"]} className="w-full">
+          <AccordionItem value="item-1">
+            <AccordionTrigger className="text-xl font-semibold">Client Information</AccordionTrigger>
+            <AccordionContent className="grid md:grid-cols-2 gap-6 pt-4">
+              <FormField name="companyName" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Company Name <InfoTooltip info={formFieldsInfo.companyName} /></FormLabel>
+                  <FormControl><Input placeholder="Full legal name" {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField name="unifiedCommercialRegNo" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Unified Commercial Registration Number <InfoTooltip info={formFieldsInfo.unifiedCommercialRegNo} /></FormLabel>
+                  <FormControl><Input placeholder="18-digit identifier" {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField name="companyType" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Company Type <InfoTooltip info={formFieldsInfo.companyType} /></FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl><SelectTrigger><SelectValue placeholder="Select company type" /></SelectTrigger></FormControl>
+                    <SelectContent>
+                      <SelectItem value="Industrial">Industrial</SelectItem>
+                      <SelectItem value="Service">Service</SelectItem>
+                      <SelectItem value="Contractor">Contractor</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField name="sector" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Sector <InfoTooltip info={formFieldsInfo.sector} /></FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value} onOpenChange={(open) => !open && handleFetchSuggestions()}>
+                    <FormControl><SelectTrigger><SelectValue placeholder="Select sector" /></SelectTrigger></FormControl>
+                    <SelectContent>
+                      <SelectItem value="Public">Public</SelectItem>
+                      <SelectItem value="Private">Private</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField name="companySize" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Company Size <InfoTooltip info={formFieldsInfo.companySize} /></FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl><SelectTrigger><SelectValue placeholder="Select company size" /></SelectTrigger></FormControl>
+                    <SelectContent>
+                      <SelectItem value="Micro">Micro</SelectItem>
+                      <SelectItem value="Small">Small</SelectItem>
+                      <SelectItem value="Medium">Medium</SelectItem>
+                      <SelectItem value="Large">Large</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField name="isicCodeL4" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">ISIC Code L4 <InfoTooltip info={formFieldsInfo.isicCodeL4} /></FormLabel>
+                  <FormControl><Input placeholder="e.g., 3510" {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+            </AccordionContent>
+          </AccordionItem>
+          
+          <AccordionItem value="item-2">
+            <AccordionTrigger className="text-xl font-semibold">Financing Details</AccordionTrigger>
+            <AccordionContent className="grid md:grid-cols-2 gap-6 pt-4">
+              <FormField name="totalFinancingAmount" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Total Financing Amount (EGP) <InfoTooltip info={formFieldsInfo.totalFinancingAmount} /></FormLabel>
+                  <FormControl><Input type="number" placeholder="e.g., 500000" {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField name="amountUsed" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Amount Used (EGP) <InfoTooltip info={formFieldsInfo.amountUsed} /></FormLabel>
+                  <FormControl><Input type="number" placeholder="e.g., 250000" {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField name="currency" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Currency <InfoTooltip info={formFieldsInfo.currency} /></FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl><SelectTrigger><SelectValue placeholder="Select currency" /></SelectTrigger></FormControl>
+                    <SelectContent>
+                      <SelectItem value="EGP">EGP</SelectItem>
+                      <SelectItem value="Foreign">Foreign Equivalent</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+               <FormField name="typeOfFacility" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Type of Facility <InfoTooltip info={formFieldsInfo.typeOfFacility} /></FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl><SelectTrigger><SelectValue placeholder="Select facility type" /></SelectTrigger></FormControl>
+                    <SelectContent>
+                      <SelectItem value="Short term">Short term</SelectItem>
+                      <SelectItem value="Medium term">Medium term</SelectItem>
+                      <SelectItem value="Long term">Long term</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+               <FormField name="facilityClassification" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Facility Classification <InfoTooltip info={formFieldsInfo.facilityClassification} /></FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl><SelectTrigger><SelectValue placeholder="Select classification" /></SelectTrigger></FormControl>
+                    <SelectContent>
+                      <SelectItem value="Performing">Performing</SelectItem>
+                      <SelectItem value="Non-performing">Non-performing</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+               <FormField name="usageType" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Usage Type <InfoTooltip info={formFieldsInfo.usageType} /></FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl><SelectTrigger><SelectValue placeholder="Select usage type" /></SelectTrigger></FormControl>
+                    <SelectContent>
+                      <SelectItem value="New Facility">New Facility</SelectItem>
+                      <SelectItem value="Existing Used">Existing Used</SelectItem>
+                      <SelectItem value="Existing Not Yet Used">Existing Not Yet Used</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+               <FormField name="dateOfCreditApproval" control={form.control} render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel className="flex items-center gap-2 mb-1">Date of Credit Approval <InfoTooltip info={formFieldsInfo.dateOfCreditApproval} /></FormLabel>
+                   <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-[240px] pl-3 text-left font-normal",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date > new Date() || date < new Date("1900-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField name="fundedUnderInitiative" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Funded under Initiative <InfoTooltip info={formFieldsInfo.fundedUnderInitiative} /></FormLabel>
+                  <FormControl><Input placeholder="e.g., GEFF, EPAP, etc." {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField name="environmentalConsultantUsed" control={form.control} render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 col-span-1 md:col-span-2">
+                    <div className="space-y-0.5">
+                        <FormLabel className="text-base flex items-center gap-2">Environmental Consultant Used? <InfoTooltip info={formFieldsInfo.environmentalConsultantUsed} /></FormLabel>
+                    </div>
+                    <FormControl>
+                        <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        />
+                    </FormControl>
+                </FormItem>
+              )} />
+            </AccordionContent>
+          </AccordionItem>
+
+          <AccordionItem value="item-3">
+            <AccordionTrigger className="text-xl font-semibold">Sustainability Details</AccordionTrigger>
+            <AccordionContent className="grid md:grid-cols-2 gap-6 pt-4">
+              <FormField name="sustainabilityAxis" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Sustainability Axis <InfoTooltip info={formFieldsInfo.sustainabilityAxis} /></FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl><SelectTrigger><SelectValue placeholder="Select axis" /></SelectTrigger></FormControl>
+                    <SelectContent>
+                      <SelectItem value="Renewable Energy">Renewable Energy</SelectItem>
+                      <SelectItem value="Water">Water</SelectItem>
+                      <SelectItem value="Waste">Waste</SelectItem>
+                      <SelectItem value="Health">Health</SelectItem>
+                      <SelectItem value="Education">Education</SelectItem>
+                      <SelectItem value="Smart Agriculture">Smart Agriculture</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField name="purposeOfFinancing" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Purpose of Financing <InfoTooltip info={formFieldsInfo.purposeOfFinancing} /></FormLabel>
+                  <FormControl><Input placeholder="e.g., Solar panel installation" {...field} onBlur={handleFetchSuggestions} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField name="environmentalSocialClassification" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Environmental/Social Classification <InfoTooltip info={formFieldsInfo.environmentalSocialClassification} /></FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl><SelectTrigger><SelectValue placeholder="Select classification" /></SelectTrigger></FormControl>
+                    <SelectContent>
+                      <SelectItem value="Environmental">Environmental</SelectItem>
+                      <SelectItem value="Social">Social</SelectItem>
+                      <SelectItem value="Both">Both</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <FormField name="classificationMethod" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Classification Method <InfoTooltip info={formFieldsInfo.classificationMethod} /></FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl><SelectTrigger><SelectValue placeholder="Select method" /></SelectTrigger></FormControl>
+                    <SelectContent>
+                      <SelectItem value="Company activity">Company activity</SelectItem>
+                      <SelectItem value="Specific project type">Specific project type</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <div className="md:col-span-2">
+                <FormField name="impactIndicators" control={form.control} render={({ field }) => (
+                    <FormItem>
+                    <FormLabel className="flex items-center gap-2">Impact Indicators <InfoTooltip info={formFieldsInfo.impactIndicators} /></FormLabel>
+                    <FormControl><Textarea placeholder="Describe the expected impact..." {...field} /></FormControl>
+                    <FormMessage />
+                    </FormItem>
+                )} />
+                {(isLoadingSuggestions || suggestions.length > 0) && (
+                    <Alert className="mt-4">
+                        <Lightbulb className="h-4 w-4" />
+                        <AlertTitle>Suggestion</AlertTitle>
+                        <AlertDescription>
+                        {isLoadingSuggestions ? (
+                            <div className="flex items-center">
+                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                            Generating suggestions...
+                            </div>
+                        ) : (
+                            <>
+                            Based on the project details, you could also consider these indicators:
+                            <ul className="list-disc pl-5 mt-2">
+                                {suggestions.map((s, i) => <li key={i}>{s}</li>)}
+                            </ul>
+                            </>
+                        )}
+                        </AlertDescription>
+                    </Alert>
+                )}
+              </div>
+              <FormField name="supportingDocuments" control={form.control} render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Supporting Documents <InfoTooltip info={formFieldsInfo.supportingDocuments} /></FormLabel>
+                  <FormControl><Input type="file" {...field} /></FormControl>
+                  <FormMessage />
+                </FormItem>
+              )} />
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+        <div className="flex justify-end gap-4">
+          <Button type="button" variant="outline" onClick={onSaveDraft}>Save Draft</Button>
+          <Button type="submit" disabled={form.formState.isSubmitting}>
+             {form.formState.isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            Submit to Head Office
+          </Button>
+        </div>
+      </form>
+    </Form>
+  );
+}
