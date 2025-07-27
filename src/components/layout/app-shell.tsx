@@ -32,8 +32,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <SidebarProvider>
       <Sidebar>
         <SidebarHeader className="p-4">
-          <div className="flex items-center gap-2">
-            <ArabBankLogo className="h-8 w-auto text-primary-foreground" />
+          <div className="flex flex-col items-center gap-2 text-center">
+            <ArabBankLogo className="h-10 w-auto text-primary-foreground" />
             <h1 className="text-lg font-semibold text-primary-foreground">Sustainability Hub</h1>
           </div>
         </SidebarHeader>

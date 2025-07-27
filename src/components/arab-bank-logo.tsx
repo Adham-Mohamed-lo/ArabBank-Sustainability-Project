@@ -3,9 +3,10 @@ import { cn } from "@/lib/utils";
 export function ArabBankLogo({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 200 40"
+      viewBox="0 0 155 40"
       xmlns="http://www.w3.org/2000/svg"
       className={cn("fill-current", className)}
+      height="40"
     >
       <defs>
         <linearGradient id="logo-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -13,26 +14,26 @@ export function ArabBankLogo({ className }: { className?: string }) {
           <stop offset="100%" style={{ stopColor: "hsl(var(--accent))" }} />
         </linearGradient>
       </defs>
-      <g transform="scale(0.5) translate(140, -15)">
-        <circle cx="50" cy="50" r="20" fill="url(#logo-gradient)" />
+      <g transform="translate(115, 0)">
+        <circle cx="0" cy="20" r="18" fill="url(#logo-gradient)" />
         <circle
-          cx="80"
-          cy="50"
-          r="20"
+          cx="20"
+          cy="20"
+          r="18"
           fill="transparent"
           stroke="url(#logo-gradient)"
-          strokeWidth="5"
+          strokeWidth="4"
         />
         <circle
-          cx="110"
-          cy="50"
-          r="20"
+          cx="40"
+          cy="20"
+          r="18"
           fill="transparent"
           stroke="url(#logo-gradient)"
-          strokeWidth="5"
+          strokeWidth="4"
         />
       </g>
-      <text x="0" y="25" fontFamily="Cairo, sans-serif" fontSize="20" fontWeight="bold">
+      <text x="0" y="28" fontFamily="Cairo, sans-serif" fontSize="24" fontWeight="bold">
         Arab Bank
       </text>
     </svg>
