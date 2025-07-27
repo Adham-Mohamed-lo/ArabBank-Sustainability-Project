@@ -32,5 +32,3 @@ export const newProjectSchema = z.object({
 });
 
 export type NewProjectFormValues = z.infer<typeof newProjectSchema>;
-
-    
