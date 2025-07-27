@@ -192,11 +192,11 @@ export function ClientList({ clients }: ClientListProps) {
                 <div className="space-y-4">
                     <h4 className="font-semibold text-lg">Client Details</h4>
                     <div className="grid grid-cols-2 items-center gap-x-4 gap-y-2 text-sm">
-                        <p className="text-muted-foreground">Sector</p>
-                        <p>{selectedClient.sector}</p>
+                        <div className="text-muted-foreground">Sector</div>
+                        <div>{selectedClient.sector}</div>
 
-                        <p className="text-muted-foreground">Registration No.</p>
-                        <p>{selectedClient.unifiedCommercialRegNo}</p>
+                        <div className="text-muted-foreground">Registration No.</div>
+                        <div>{selectedClient.unifiedCommercialRegNo}</div>
                         
                         <div className="text-muted-foreground">Company Type</div>
                         <div><Badge variant="secondary">{selectedClient.companyType}</Badge></div>
@@ -204,8 +204,8 @@ export function ClientList({ clients }: ClientListProps) {
                         <div className="text-muted-foreground">Company Size</div>
                         <div><Badge>{selectedClient.companySize}</Badge></div>
 
-                        <p className="text-muted-foreground">ISIC Code L4</p>
-                        <p>{selectedClient.isicCodeL4}</p>
+                        <div className="text-muted-foreground">ISIC Code L4</div>
+                        <div>{selectedClient.isicCodeL4}</div>
                     </div>
                 </div>
 
@@ -215,10 +215,10 @@ export function ClientList({ clients }: ClientListProps) {
                 <div className="space-y-4">
                     <h4 className="font-semibold text-lg">Contact Information</h4>
                     <div className="grid grid-cols-2 items-center gap-x-4 gap-y-2 text-sm">
-                        <p className="text-muted-foreground">Contact Person</p>
-                        <p>{selectedClient.contactPerson}</p>
+                        <div className="text-muted-foreground">Contact Person</div>
+                        <div>{selectedClient.contactPerson}</div>
 
-                        <p className="text-muted-foreground">Contact Email</p>
+                        <div className="text-muted-foreground">Contact Email</div>
                         <a href={`mailto:${selectedClient.contactEmail}`} className="text-primary hover:underline">
                             {selectedClient.contactEmail}
                         </a>
@@ -231,11 +231,11 @@ export function ClientList({ clients }: ClientListProps) {
                 <div className="space-y-4">
                     <h4 className="font-semibold text-lg">Financial Summary</h4>
                      <div className="grid grid-cols-2 items-center gap-x-4 gap-y-2 text-sm">
-                        <p className="text-muted-foreground">Total Financing</p>
-                        <p>EGP {totalFinancing(selectedClient.projects).toLocaleString()}</p>
+                        <div className="text-muted-foreground">Total Financing</div>
+                        <div>EGP {totalFinancing(selectedClient.projects).toLocaleString()}</div>
                         
-                        <p className="text-muted-foreground">Active Projects</p>
-                        <p>{selectedClient.projects.filter(p => p.status === 'Active').length}</p>
+                        <div className="text-muted-foreground">Active Projects</div>
+                        <div>{selectedClient.projects.filter(p => p.status === 'Active').length}</div>
                      </div>
                 </div>
 
@@ -254,41 +254,41 @@ export function ClientList({ clients }: ClientListProps) {
                             </div>
 
                             <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
-                                <p className="text-muted-foreground col-span-2 font-medium">Financing Details</p>
-                                <p className="text-muted-foreground">Total Amount</p>
-                                <p>{project.currency} {project.totalFinancingAmount.toLocaleString()}</p>
-                                <p className="text-muted-foreground">Amount Used</p>
-                                <p>{project.currency} {project.amountUsed.toLocaleString()}</p>
-                                <p className="text-muted-foreground">Type of Facility</p>
-                                <p>{project.typeOfFacility}</p>
-                                <p className="text-muted-foreground">Classification</p>
-                                <p>{project.facilityClassification}</p>
-                                <p className="text-muted-foreground">Usage</p>
-                                <p>{project.usageType}</p>
-                                <p className="text-muted-foreground">Approval Date</p>
-                                <p>{format(project.dateOfCreditApproval, "PPP")}</p>
+                                <div className="text-muted-foreground col-span-2 font-medium">Financing Details</div>
+                                <div className="text-muted-foreground">Total Amount</div>
+                                <div>{project.currency} {project.totalFinancingAmount.toLocaleString()}</div>
+                                <div className="text-muted-foreground">Amount Used</div>
+                                <div>{project.currency} {project.amountUsed.toLocaleString()}</div>
+                                <div className="text-muted-foreground">Type of Facility</div>
+                                <div>{project.typeOfFacility}</div>
+                                <div className="text-muted-foreground">Classification</div>
+                                <div>{project.facilityClassification}</div>
+                                <div className="text-muted-foreground">Usage</div>
+                                <div>{project.usageType}</div>
+                                <div className="text-muted-foreground">Approval Date</div>
+                                <div>{format(project.dateOfCreditApproval, "PPP")}</div>
                                 {project.fundedUnderInitiative && <>
-                                    <p className="text-muted-foreground">Initiative</p>
-                                    <p>{project.fundedUnderInitiative}</p>
+                                    <div className="text-muted-foreground">Initiative</div>
+                                    <div>{project.fundedUnderInitiative}</div>
                                 </>}
 
-                                <p className="text-muted-foreground col-span-2 font-medium mt-4">Sustainability Details</p>
-                                <p className="text-muted-foreground">Axis</p>
-                                <p>{project.sustainabilityAxis}</p>
-                                <p className="text-muted-foreground">E/S Classification</p>
-                                <p>{project.environmentalSocialClassification}</p>
-                                 <p className="text-muted-foreground">Classification Method</p>
-                                <p>{project.classificationMethod}</p>
-                                <p className="text-muted-foreground">Consultant Used</p>
-                                <p>{project.environmentalConsultantUsed ? 'Yes' : 'No'}</p>
-                                <p className="text-muted-foreground col-span-2">Impact Indicators</p>
-                                <p className="col-span-2">{project.impactIndicators}</p>
+                                <div className="text-muted-foreground col-span-2 font-medium mt-4">Sustainability Details</div>
+                                <div className="text-muted-foreground">Axis</div>
+                                <div>{project.sustainabilityAxis}</div>
+                                <div className="text-muted-foreground">E/S Classification</div>
+                                <div>{project.environmentalSocialClassification}</div>
+                                 <div className="text-muted-foreground">Classification Method</div>
+                                <div>{project.classificationMethod}</div>
+                                <div className="text-muted-foreground">Consultant Used</div>
+                                <div>{project.environmentalConsultantUsed ? 'Yes' : 'No'}</div>
+                                <div className="text-muted-foreground col-span-2">Impact Indicators</div>
+                                <div className="col-span-2">{project.impactIndicators}</div>
                             </div>
                         </div>
                       ))}
                     </div>
                   ) : (
-                    <p className="text-sm text-muted-foreground">No projects found for this client.</p>
+                    <div className="text-sm text-muted-foreground">No projects found for this client.</div>
                   )}
                 </div>
               </div>
