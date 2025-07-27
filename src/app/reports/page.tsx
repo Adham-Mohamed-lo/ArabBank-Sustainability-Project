@@ -5,7 +5,12 @@ import { Download } from "lucide-react";
 export default function ReportsPage() {
   return (
     <div className="container mx-auto p-4 md:p-8">
-      <h2 className="text-3xl font-bold tracking-tight mb-6">Reports</h2>
+      <header className="mb-6">
+        <h2 className="text-3xl font-bold tracking-tight">Reports</h2>
+        <p className="text-muted-foreground">
+          Generate and download reports for analysis and regulatory submission.
+        </p>
+      </header>
       <Card>
         <CardHeader>
           <CardTitle>Download Reports</CardTitle>

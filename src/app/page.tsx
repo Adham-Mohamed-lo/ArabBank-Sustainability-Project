@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { DollarSign, Banknote, Activity, CheckCircle2, Users } from "lucide-react";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Pie, PieChart, Cell } from "recharts";
@@ -29,7 +29,12 @@ export default function DashboardPage() {
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+        <div>
+          <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
+          <p className="text-muted-foreground">
+            An overview of your sustainability financing portfolio.
+          </p>
+        </div>
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
@@ -89,6 +94,9 @@ export default function DashboardPage() {
         <Card className="lg:col-span-4">
           <CardHeader>
             <CardTitle>Financing by Sector</CardTitle>
+            <CardDescription>
+              A breakdown of total financing issued across different sustainability sectors.
+            </CardDescription>
           </CardHeader>
           <CardContent className="pl-2">
             <ChartContainer config={chartConfigSector} className="h-[300px] w-full">
@@ -116,6 +124,9 @@ export default function DashboardPage() {
         <Card className="lg:col-span-3">
           <CardHeader>
             <CardTitle>Financing by Company Size</CardTitle>
+             <CardDescription>
+              Distribution of financing among micro, small, medium, and large companies.
+            </CardDescription>
           </CardHeader>
           <CardContent>
              <ChartContainer config={chartConfigSize} className="h-[300px] w-full">
