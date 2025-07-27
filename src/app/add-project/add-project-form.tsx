@@ -177,9 +177,9 @@ export function AddProjectForm() {
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select company type" /></SelectTrigger></FormControl>
                     <SelectContent>
-                      <SelectItem value="Industrial">Industrial</SelectItem>
-                      <SelectItem value="Service">Service</SelectItem>
-                      <SelectItem value="Contractor">Contractor</SelectItem>
+                      <SelectItem value="صناعي">صناعي</SelectItem>
+                      <SelectItem value="خدمي">خدمي</SelectItem>
+                      <SelectItem value="مقاول">مقاول</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -191,8 +191,8 @@ export function AddProjectForm() {
                   <Select onValueChange={field.onChange} defaultValue={field.value} onOpenChange={(open) => !open && handleFetchSuggestions()}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select sector" /></SelectTrigger></FormControl>
                     <SelectContent>
-                      <SelectItem value="Public">Public</SelectItem>
-                      <SelectItem value="Private">Private</SelectItem>
+                      <SelectItem value="عام">عام</SelectItem>
+                      <SelectItem value="خاص">خاص</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -204,10 +204,10 @@ export function AddProjectForm() {
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select company size" /></SelectTrigger></FormControl>
                     <SelectContent>
-                      <SelectItem value="Micro">Micro</SelectItem>
-                      <SelectItem value="Small">Small</SelectItem>
-                      <SelectItem value="Medium">Medium</SelectItem>
-                      <SelectItem value="Large">Large</SelectItem>
+                      <SelectItem value="متناهي الصغر">متناهي الصغر</SelectItem>
+                      <SelectItem value="صغير">صغير</SelectItem>
+                      <SelectItem value="متوسط">متوسط</SelectItem>
+                      <SelectItem value="كبير">كبير</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -246,8 +246,8 @@ export function AddProjectForm() {
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select currency" /></SelectTrigger></FormControl>
                     <SelectContent>
-                      <SelectItem value="EGP">EGP</SelectItem>
-                      <SelectItem value="Foreign">Foreign Equivalent</SelectItem>
+                      <SelectItem value="جنيه مصري">جنيه مصري</SelectItem>
+                      <SelectItem value="معادل أجنبي">معادل أجنبي</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -259,9 +259,9 @@ export function AddProjectForm() {
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select facility type" /></SelectTrigger></FormControl>
                     <SelectContent>
-                      <SelectItem value="Short term">Short term</SelectItem>
-                      <SelectItem value="Medium term">Medium term</SelectItem>
-                      <SelectItem value="Long term">Long term</SelectItem>
+                      <SelectItem value="قصير الأجل">قصير الأجل</SelectItem>
+                      <SelectItem value="متوسط الأجل">متوسط الأجل</SelectItem>
+                      <SelectItem value="طويل الأجل">طويل الأجل</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -273,8 +273,8 @@ export function AddProjectForm() {
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select classification" /></SelectTrigger></FormControl>
                     <SelectContent>
-                      <SelectItem value="Performing">Performing</SelectItem>
-                      <SelectItem value="Non-performing">Non-performing</SelectItem>
+                      <SelectItem value="عامل">عامل</SelectItem>
+                      <SelectItem value="غير عامل">غير عامل</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -286,9 +286,9 @@ export function AddProjectForm() {
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select usage type" /></SelectTrigger></FormControl>
                     <SelectContent>
-                      <SelectItem value="New Facility">New Facility</SelectItem>
-                      <SelectItem value="Existing Used">Existing Used</SelectItem>
-                      <SelectItem value="Existing Not Yet Used">Existing Not Yet Used</SelectItem>
+                      <SelectItem value="تسهيل جديد">تسهيل جديد</SelectItem>
+                      <SelectItem value="مستخدم حالي">مستخدم حالي</SelectItem>
+                      <SelectItem value="حالي لم يستخدم بعد">حالي لم يستخدم بعد</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -363,12 +363,12 @@ export function AddProjectForm() {
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select axis" /></SelectTrigger></FormControl>
                     <SelectContent>
-                      <SelectItem value="Renewable Energy">Renewable Energy</SelectItem>
-                      <SelectItem value="Water">Water</SelectItem>
-                      <SelectItem value="Waste">Waste</SelectItem>
-                      <SelectItem value="Health">Health</SelectItem>
-                      <SelectItem value="Education">Education</SelectItem>
-                      <SelectItem value="Smart Agriculture">Smart Agriculture</SelectItem>
+                      <SelectItem value="الطاقة المتجددة">الطاقة المتجددة</SelectItem>
+                      <SelectItem value="المياه">المياه</SelectItem>
+                      <SelectItem value="المخلفات">المخلفات</SelectItem>
+                      <SelectItem value="الصحة">الصحة</SelectItem>
+                      <SelectItem value="التعليم">التعليم</SelectItem>
+                      <SelectItem value="الزراعة الذكية">الزراعة الذكية</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -387,9 +387,9 @@ export function AddProjectForm() {
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select classification" /></SelectTrigger></FormControl>
                     <SelectContent>
-                      <SelectItem value="Environmental">Environmental</SelectItem>
-                      <SelectItem value="Social">Social</SelectItem>
-                      <SelectItem value="Both">Both</SelectItem>
+                      <SelectItem value="بيئي">بيئي</SelectItem>
+                      <SelectItem value="اجتماعي">اجتماعي</SelectItem>
+                      <SelectItem value="كلاهما">كلاهما</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -401,8 +401,8 @@ export function AddProjectForm() {
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select method" /></SelectTrigger></FormControl>
                     <SelectContent>
-                      <SelectItem value="Company activity">Company activity</SelectItem>
-                      <SelectItem value="Specific project type">Specific project type</SelectItem>
+                      <SelectItem value="نشاط الشركة">نشاط الشركة</SelectItem>
+                      <SelectItem value="نوع المشروع المحدد">نوع المشروع المحدد</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -459,3 +459,5 @@ export function AddProjectForm() {
     </Form>
   );
 }
+
+    
