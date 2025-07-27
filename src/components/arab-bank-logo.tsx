@@ -8,8 +8,8 @@ export function ArabBankLogo({ className }: { className?: string }) {
         <Image 
             src="/arab-bank-logo.png"
             alt="Arab Bank Logo"
-            width={30}
-            height={30}
+            width={80}
+            height={80}
             className="object-contain"
         />
     </div>
