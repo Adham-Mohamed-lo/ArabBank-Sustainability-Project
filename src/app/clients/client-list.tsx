@@ -198,11 +198,11 @@ export function ClientList({ clients }: ClientListProps) {
                         <p className="text-muted-foreground">Registration No.</p>
                         <p>{selectedClient.unifiedCommercialRegNo}</p>
                         
-                        <p className="text-muted-foreground">Company Type</p>
-                        <p><Badge variant="secondary">{selectedClient.companyType}</Badge></p>
+                        <div className="text-muted-foreground">Company Type</div>
+                        <div><Badge variant="secondary">{selectedClient.companyType}</Badge></div>
 
-                        <p className="text-muted-foreground">Company Size</p>
-                        <p><Badge>{selectedClient.companySize}</Badge></p>
+                        <div className="text-muted-foreground">Company Size</div>
+                        <div><Badge>{selectedClient.companySize}</Badge></div>
 
                         <p className="text-muted-foreground">ISIC Code L4</p>
                         <p>{selectedClient.isicCodeL4}</p>
