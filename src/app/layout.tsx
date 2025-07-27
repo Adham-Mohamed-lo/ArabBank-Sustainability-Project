@@ -4,7 +4,7 @@ import { AppShell } from '@/components/layout/app-shell';
 import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
-  title: 'EcoFinance Data Hub',
+  title: 'Arab Bank Sustainability Hub',
   description: 'Manage data about sustainability-aligned clients and their financed projects.',
 };
 

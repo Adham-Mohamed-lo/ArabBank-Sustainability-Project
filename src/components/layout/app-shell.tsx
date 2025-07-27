@@ -15,7 +15,8 @@ import {
   SidebarTrigger,
   SidebarInset,
 } from '@/components/ui/sidebar';
-import { Home, PlusCircle, Users, FileText, SettingsIcon, Building } from 'lucide-react';
+import { Home, PlusCircle, Users, FileText, SettingsIcon } from 'lucide-react';
+import { ArabBankLogo } from '../arab-bank-logo';
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -32,8 +33,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       <Sidebar>
         <SidebarHeader className="p-4">
           <div className="flex items-center gap-2">
-            <Building className="text-primary-foreground" />
-            <h1 className="text-xl font-semibold text-primary-foreground">EcoFinance</h1>
+            <ArabBankLogo className="h-8 w-auto text-primary-foreground" />
+            <h1 className="text-lg font-semibold text-primary-foreground">Sustainability Hub</h1>
           </div>
         </SidebarHeader>
         <SidebarContent>

@@ -14,13 +14,13 @@ export const financingByCompanySizeData = [
     { companySize: "Large", financing: 6200000 },
 ];
 
-export const COLORS = ["#0E6251", "#3498DB", "#F39C12", "#8E44AD", "#2ECC71"];
+export const COLORS = ["#0056b3", "#007bff", "#F39C12", "#8E44AD", "#2ECC71"];
 
 export const mockClientData = [
-  { id: 1, companyName: "GreenTech Solutions", sector: "Renewable Energy", unifiedCommercialRegNo: "123456789012345678", companyType: "Industrial", companySize: "Medium" },
-  { id: 2, companyName: "AquaPure Ltd.", sector: "Water Management", unifiedCommercialRegNo: "234567890123456789", companyType: "Service", companySize: "Small" },
-  { id: 3, companyName: "BioWaste Corp.", sector: "Waste Management", unifiedCommercialRegNo: "345678901234567890", companyType: "Industrial", companySize: "Large" },
-  { id: 4, companyName: "EduVantage", sector: "Education", unifiedCommercialRegNo: "456789012345678901", companyType: "Service", companySize: "Medium" },
-  { id: 5, companyName: "AgriInnovate Farms", sector: "Smart Agriculture", unifiedCommercialRegNo: "567890123456789012", companyType: "Contractor", companySize: "Small" },
-  { id: 6, companyName: "MediCare Hospitals", sector: "Healthcare", unifiedCommercialRegNo: "678901234567890123", companyType: "Service", companySize: "Large" },
+  { id: 1, companyName: "GreenTech Solutions", sector: "Renewable Energy", unifiedCommercialRegNo: "123456789012345678", companyType: "Industrial", companySize: "Medium", totalFinancing: 5000000, activeProjects: 2, contactPerson: "Ahmed Ali", contactEmail: "ahmed.ali@greentech.com" },
+  { id: 2, companyName: "AquaPure Ltd.", sector: "Water Management", unifiedCommercialRegNo: "234567890123456789", companyType: "Service", companySize: "Small", totalFinancing: 1200000, activeProjects: 1, contactPerson: "Fatima Zahra", contactEmail: "fatima.zahra@aquapure.com" },
+  { id: 3, companyName: "BioWaste Corp.", sector: "Waste Management", unifiedCommercialRegNo: "345678901234567890", companyType: "Industrial", companySize: "Large", totalFinancing: 12500000, activeProjects: 5, contactPerson: "Khaled Hassan", contactEmail: "khaled.hassan@biowaste.com" },
+  { id: 4, companyName: "EduVantage", sector: "Education", unifiedCommercialRegNo: "456789012345678901", companyType: "Service", companySize: "Medium", totalFinancing: 3400000, activeProjects: 3, contactPerson: "Nour Mohamed", contactEmail: "nour.mohamed@eduvantage.com" },
+  { id: 5, companyName: "AgriInnovate Farms", sector: "Smart Agriculture", unifiedCommercialRegNo: "567890123456789012", companyType: "Contractor", companySize: "Small", totalFinancing: 750000, activeProjects: 1, contactPerson: "Youssef Ibrahim", contactEmail: "youssef.ibrahim@agriinnovate.com" },
+  { id: 6, companyName: "MediCare Hospitals", sector: "Healthcare", unifiedCommercialRegNo: "678901234567890123", companyType: "Service", companySize: "Large", totalFinancing: 9800000, activeProjects: 4, contactPerson: "Mariam El-Masry", contactEmail: "mariam.elmasry@medicare.com" },
 ];
