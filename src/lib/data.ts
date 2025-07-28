@@ -89,6 +89,27 @@ const projectsForClient2 = [
     }
 ];
 
+const projectsForClient6 = [
+    {
+        id: 601,
+        purposeOfFinancing: "بناء جناح مستشفى جديد",
+        totalFinancingAmount: 25000000,
+        amountUsed: 10000000,
+        currency: "جنيه مصري",
+        typeOfFacility: "طويل الأجل",
+        facilityClassification: "عامل",
+        usageType: "تسهيل جديد",
+        dateOfCreditApproval: new Date("2023-09-01"),
+        fundedUnderInitiative: "CBE Health Initiative",
+        environmentalConsultantUsed: false,
+        sustainabilityAxis: "الصحة",
+        environmentalSocialClassification: "اجتماعي",
+        classificationMethod: "نوع المشروع المحدد",
+        impactIndicators: "زيادة سعة المستشفى بمقدار 50 سريرًا",
+        status: "نشيط",
+    }
+];
+
 
 export const mockClientData = [
   { 
@@ -99,6 +120,8 @@ export const mockClientData = [
     companyType: "صناعي", 
     companySize: "متوسط", 
     isicCodeL4: "3510",
+    exportsProducts: true,
+    transportsToEu: true,
     contactPerson: "أحمد علي", 
     contactEmail: "ahmed.ali@greentech.com",
     projects: projectsForClient1,
@@ -111,6 +134,8 @@ export const mockClientData = [
     companyType: "خدمي", 
     companySize: "صغير", 
     isicCodeL4: "3600",
+    exportsProducts: false,
+    transportsToEu: false,
     contactPerson: "فاطمة الزهراء", 
     contactEmail: "fatima.zahra@aquapure.com",
     projects: projectsForClient2,
@@ -123,6 +148,8 @@ export const mockClientData = [
     companyType: "صناعي", 
     companySize: "كبير", 
     isicCodeL4: "3821",
+    exportsProducts: true,
+    transportsToEu: false,
     contactPerson: "خالد حسن", 
     contactEmail: "khaled.hassan@biowaste.com",
     projects: [],
@@ -135,6 +162,8 @@ export const mockClientData = [
     companyType: "خدمي", 
     companySize: "متوسط", 
     isicCodeL4: "8549",
+    exportsProducts: false,
+    transportsToEu: false,
     contactPerson: "نور محمد", 
     contactEmail: "nour.mohamed@eduvantage.com",
     projects: [],
@@ -147,6 +176,8 @@ export const mockClientData = [
     companyType: "مقاول", 
     companySize: "صغير",
     isicCodeL4: "0161", 
+    exportsProducts: true,
+    transportsToEu: false,
     contactPerson: "يوسف إبراهيم", 
     contactEmail: "youssef.ibrahim@agriinnovate.com",
     projects: [],
@@ -159,9 +190,10 @@ export const mockClientData = [
     companyType: "خدمي", 
     companySize: "كبير", 
     isicCodeL4: "8610",
+    exportsProducts: false,
+    transportsToEu: false,
     contactPerson: "مريم المصري", 
     contactEmail: "mariam.elmasry@medicare.com",
-    projects: [],
+    projects: projectsForClient6,
   },
 ];
-

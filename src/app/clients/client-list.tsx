@@ -60,6 +60,8 @@ type Client = {
   companyType: string;
   companySize: string;
   isicCodeL4: string;
+  exportsProducts: boolean;
+  transportsToEu: boolean;
   contactPerson: string;
   contactEmail: string;
   projects: Project[];
@@ -152,6 +154,7 @@ export function ClientList({ clients }: ClientListProps) {
                 <TableHead>Registration No.</TableHead>
                 <TableHead>Company Type</TableHead>
                 <TableHead>Company Size</TableHead>
+                <TableHead>Exports</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -163,11 +166,12 @@ export function ClientList({ clients }: ClientListProps) {
                     <TableCell>{client.unifiedCommercialRegNo}</TableCell>
                     <TableCell>{client.companyType}</TableCell>
                     <TableCell>{client.companySize}</TableCell>
+                    <TableCell>{client.exportsProducts ? 'Yes' : 'No'}</TableCell>
                   </TableRow>
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={5} className="h-24 text-center">
+                  <TableCell colSpan={6} className="h-24 text-center">
                     No results found.
                   </TableCell>
                 </TableRow>
@@ -207,6 +211,16 @@ export function ClientList({ clients }: ClientListProps) {
 
                         <div className="text-muted-foreground">رمز ISIC L4</div>
                         <div>{selectedClient.isicCodeL4}</div>
+
+                        <div className="text-muted-foreground">تصدير المنتجات</div>
+                        <div>{selectedClient.exportsProducts ? 'نعم' : 'لا'}</div>
+
+                        {selectedClient.exportsProducts && (
+                            <>
+                                <div className="text-muted-foreground">النقل إلى الاتحاد الأوروبي</div>
+                                <div>{selectedClient.transportsToEu ? 'نعم' : 'لا'}</div>
+                            </>
+                        )}
                     </div>
                 </div>
 
