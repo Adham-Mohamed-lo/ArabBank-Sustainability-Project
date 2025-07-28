@@ -96,7 +96,7 @@ const defaultFormValues: NewProjectFormValues = {
   typeOfFacility: "",
   facilityClassification: "",
   usageType: "",
-  dateOfCreditApproval: new Date(),
+  dateOfCreditApproval: undefined,
   fundedUnderInitiative: "",
   environmentalConsultantUsed: false,
   isSustainabilityProject: false,

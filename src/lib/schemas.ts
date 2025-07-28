@@ -16,7 +16,7 @@ export const newProjectSchema = z.object({
   typeOfFacility: z.enum(["قصير الأجل", "متوسط الأجل", "طويل الأجل"], { required_error: "Type of facility is required."}),
   facilityClassification: z.enum(["عامل", "غير عامل"], { required_error: "Facility classification is required."}),
   usageType: z.enum(["تسهيل جديد", "مستخدم حالي", "حالي لم يستخدم بعد"], { required_error: "Usage type is required."}),
-  dateOfCreditApproval: z.date(),
+  dateOfCreditApproval: z.date({ required_error: "Date of credit approval is required."}),
   fundedUnderInitiative: z.string().optional(),
   environmentalConsultantUsed: z.boolean().default(false),
   
