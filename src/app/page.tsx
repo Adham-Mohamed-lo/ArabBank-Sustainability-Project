@@ -11,7 +11,8 @@ import {
   financingByCbamData,
   environmentalSectorsData,
   socialSectorsData,
-  industrialSectorsData
+  industrialSectorsData,
+  mockClientData
 } from "@/lib/data";
 
 const chartConfigSize = {
@@ -75,6 +76,12 @@ const chartConfigIndustrialSectors = {
 };
 
 export default function DashboardPage() {
+  const totalClients = mockClientData.length;
+  const allProjects = mockClientData.flatMap(client => client.projects);
+  const activeProjects = allProjects.filter(p => p.status === 'نشيط').length;
+  const completedProjects = allProjects.filter(p => p.status === 'مكتمل').length;
+  const totalFinancing = allProjects.reduce((sum, p) => sum + p.totalFinancingAmount, 0);
+
   return (
     <div className="flex-1 space-y-4 p-4 md:p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
@@ -94,7 +101,7 @@ export default function DashboardPage() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">6</div>
+            <div className="text-2xl font-bold">{totalClients}</div>
             <p className="text-xs text-muted-foreground">
               clients with sustainability projects
             </p>
@@ -108,7 +115,7 @@ export default function DashboardPage() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">EGP 31,200,000</div>
+            <div className="text-2xl font-bold">EGP {totalFinancing.toLocaleString()}</div>
             <p className="text-xs text-muted-foreground">
               in active & completed projects
             </p>
@@ -120,7 +127,7 @@ export default function DashboardPage() {
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">2</div>
+            <div className="text-2xl font-bold">{activeProjects}</div>
             <p className="text-xs text-muted-foreground">
               currently ongoing
             </p>
@@ -132,7 +139,7 @@ export default function DashboardPage() {
             <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">2</div>
+            <div className="text-2xl font-bold">{completedProjects}</div>
             <p className="text-xs text-muted-foreground">
               successfully finished
             </p>
@@ -144,7 +151,7 @@ export default function DashboardPage() {
           <CardHeader>
             <CardTitle>Financing by Industrial Sector</CardTitle>
              <CardDescription>
-              Financing issued for projects in key industrial sectors.
+              Financing issued for projects in key industrial sectors (CBAM-related).
             </CardDescription>
           </CardHeader>
           <CardContent className="pl-2">

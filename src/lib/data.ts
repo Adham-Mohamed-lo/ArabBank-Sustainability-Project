@@ -1,39 +1,39 @@
 
 export const environmentalSectorsData = [
-  { sector: "Renewable Energy", financing: 5000000 },
-  { sector: "Water Management", financing: 1200000 },
-  { sector: "Waste Management", financing: 0 },
-  { sector: "Smart Agriculture", financing: 0 },
+  { sector: "Renewable Energy", financing: 8500000 },
+  { sector: "Water Management", financing: 3800000 },
+  { sector: "Waste Management", financing: 2100000 },
+  { sector: "Smart Agriculture", financing: 1600000 },
 ];
 
 export const socialSectorsData = [
   { sector: "Healthcare", financing: 25000000 },
-  { sector: "Education", financing: 0 },
+  { sector: "Education", financing: 12000000 },
 ];
 
 export const industrialSectorsData = [
-  { sector: "Electricity", financing: 5000000 },
-  { sector: "Cement", financing: 0 },
-  { sector: "Fertilizers", financing: 0 },
-  { sector: "Iron & Steel", financing: 0 },
-  { sector: "Aluminum", financing: 0 },
-  { sector: "Green Hydrogen", financing: 0 },
+    { sector: "Electricity", financing: 7500000 },
+    { sector: "Cement", financing: 4200000 },
+    { sector: "Fertilizers", financing: 3000000 },
+    { sector: "Iron & Steel", financing: 6800000 },
+    { sector: "Aluminum", financing: 2500000 },
+    { sector: "Green Hydrogen", financing: 1000000 },
 ];
 
 export const financingByCompanySizeData = [
-    { companySize: "Small", financing: 1200000 },
-    { companySize: "Medium", financing: 1500000 },
-    { companySize: "Large", financing: 28500000 },
+    { companySize: "Small", financing: 5400000 },
+    { companySize: "Medium", financing: 15300000 },
+    { companySize: "Large", financing: 32300000 },
 ];
 
 export const financingBySustainabilityType = [
-  { type: "Environmental", financing: 6200000 },
-  { type: "Social", financing: 25000000 },
+  { type: "Environmental", financing: 16000000 },
+  { type: "Social", financing: 37000000 },
 ]
 
 export const financingByCbamData = [
-  { type: "CBAM Affected", financing: 3500000 },
-  { type: "Not Affected", financing: 27700000 },
+  { type: "CBAM Affected", financing: 25000000 },
+  { type: "Not Affected", financing: 28000000 },
 ];
 
 export const COLORS = ["#0056b3", "#007bff", "#F39C12", "#8E44AD", "#2ECC71"];
@@ -98,6 +98,70 @@ const projectsForClient2 = [
     }
 ];
 
+const projectsForClient3 = [
+    {
+        id: 301,
+        purposeOfFinancing: "تطوير مصنع الاسمنت لتقليل الانبعاثات",
+        totalFinancingAmount: 4200000,
+        amountUsed: 2000000,
+        currency: "جنيه مصري",
+        typeOfFacility: "طويل الأجل",
+        facilityClassification: "عامل",
+        usageType: "تسهيل جديد",
+        dateOfCreditApproval: new Date("2024-02-10"),
+        fundedUnderInitiative: "CBAM Fund",
+        environmentalConsultantUsed: true,
+        sustainabilityAxis: "الطاقة المتجددة",
+        environmentalSocialClassification: "بيئي",
+        classificationMethod: "نشاط الشركة",
+        impactIndicators: "تقليل استهلاك الطاقة بنسبة 15%",
+        status: "نشيط",
+    }
+];
+
+const projectsForClient4 = [
+    {
+        id: 401,
+        purposeOfFinancing: "تجهيز مدارس بالتكنولوجيا الحديثة",
+        totalFinancingAmount: 12000000,
+        amountUsed: 5000000,
+        currency: "جنيه مصري",
+        typeOfFacility: "متوسط الأجل",
+        facilityClassification: "عامل",
+        usageType: "تسهيل جديد",
+        dateOfCreditApproval: new Date("2023-08-15"),
+        fundedUnderInitiative: "CBE Education Initiative",
+        environmentalConsultantUsed: false,
+        sustainabilityAxis: "التعليم",
+        environmentalSocialClassification: "اجتماعي",
+        classificationMethod: "نوع المشروع المحدد",
+        impactIndicators: "توفير أجهزة لوحية لـ 1000 طالب",
+        status: "نشيط",
+    }
+];
+
+const projectsForClient5 = [
+    {
+        id: 501,
+        purposeOfFinancing: "تطبيق أنظمة الري الذكي",
+        totalFinancingAmount: 1600000,
+        amountUsed: 1600000,
+        currency: "جنيه مصري",
+        typeOfFacility: "متوسط الأجل",
+        facilityClassification: "عامل",
+        usageType: "مستخدم حالي",
+        dateOfCreditApproval: new Date("2023-03-22"),
+        fundedUnderInitiative: "",
+        environmentalConsultantUsed: true,
+        sustainabilityAxis: "الزراعة الذكية",
+        environmentalSocialClassification: "بيئي",
+        classificationMethod: "نوع المشروع المحدد",
+        impactIndicators: "توفير 40% من استهلاك مياه الري",
+        status: "مكتمل",
+    }
+];
+
+
 const projectsForClient6 = [
     {
         id: 601,
@@ -156,12 +220,12 @@ export const mockClientData = [
     unifiedCommercialRegNo: "345678901234567890", 
     companyType: "صناعي", 
     companySize: "كبير", 
-    isicCodeL4: "3821",
+    isicCodeL4: "2011",
     exportsProducts: true,
     transportsToEu: false,
     contactPerson: "خالد حسن", 
     contactEmail: "khaled.hassan@biowaste.com",
-    projects: [],
+    projects: projectsForClient3,
   },
   { 
     id: 4, 
@@ -175,7 +239,7 @@ export const mockClientData = [
     transportsToEu: false,
     contactPerson: "نور محمد", 
     contactEmail: "nour.mohamed@eduvantage.com",
-    projects: [],
+    projects: projectsForClient4,
   },
   { 
     id: 5, 
@@ -189,7 +253,7 @@ export const mockClientData = [
     transportsToEu: false,
     contactPerson: "يوسف إبراهيم", 
     contactEmail: "youssef.ibrahim@agriinnovate.com",
-    projects: [],
+    projects: projectsForClient5,
   },
   { 
     id: 6, 
