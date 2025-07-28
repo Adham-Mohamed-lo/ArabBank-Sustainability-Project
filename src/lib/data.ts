@@ -12,12 +12,12 @@ export const socialSectorsData = [
 ];
 
 export const industrialSectorsData = [
-  { sector: "الكهرباء", financing: 15000000 },
-  { sector: "الأسمنت", financing: 9500000 },
-  { sector: "الأسمدة", financing: 7200000 },
-  { sector: "الحديد والصلب", financing: 11800000 },
-  { sector: "الألومنيوم", financing: 8500000 },
-  { sector: "الهيدروجين الأخضر", financing: 4000000 },
+  { sector: "Electricity", financing: 15000000 },
+  { sector: "Cement", financing: 9500000 },
+  { sector: "Fertilizers", financing: 7200000 },
+  { sector: "Iron & Steel", financing: 11800000 },
+  { sector: "Aluminum", financing: 8500000 },
+  { sector: "Green Hydrogen", financing: 4000000 },
 ];
 
 export const financingByCompanySizeData = [
