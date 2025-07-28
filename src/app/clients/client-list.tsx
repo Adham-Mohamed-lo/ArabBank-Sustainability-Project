@@ -71,12 +71,12 @@ interface ClientListProps {
 }
 
 export function ClientList({ clients }: ClientListProps) {
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState(() => ({
     companyName: '',
     sector: 'الكل',
     companyType: 'الكل',
     companySize: 'الكل',
-  });
+  }));
   const [selectedClient, setSelectedClient] = useState<Client | null>(null);
 
   const handleFilterChange = (filterName: keyof typeof filters, value: string) => {
