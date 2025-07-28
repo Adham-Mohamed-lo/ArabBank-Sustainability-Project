@@ -37,12 +37,12 @@ export default function ReportsPage() {
           <CardHeader>
             <CardTitle>Upload Report</CardTitle>
             <CardDescription>
-              Upload a previously generated report to add it to the database.
+              Upload a previously generated report (PDF or Excel) to add it to the database.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col sm:flex-row items-start gap-4">
             <div className="flex-grow">
-              <Input type="file" />
+              <Input type="file" accept=".pdf,.xls,.xlsx,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
             </div>
             <Button>
               <Upload className="mr-2 h-4 w-4" />
