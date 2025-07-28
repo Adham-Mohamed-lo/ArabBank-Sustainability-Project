@@ -51,13 +51,13 @@ const formFieldsInfo = {
   sector: { en: "Specify if the company is a public or private entity.", ar: "حدد ما إذا كانت الشركة كيانًا عامًا أم خاصًا." },
   companySize: { en: "Classification based on Central Bank of Egypt (CBE) definitions.", ar: "التصنيف بناءً على تعريفات البنك المركزي المصري." },
   isicCodeL4: { en: "International Standard Industrial Classification code for the business activity.", ar: "رمز التصنيف الصناعي الدولي الموحد للنشاط التجاري." },
-  totalFinancingAmount: { en: "The total amount approved under the credit agreement.", ar: "المبلغ الإجمالي المعتمد بموجب اتفاقية الائتمان." },
+  totalFinancingAmount: { en: "The total amount approved under the credit agreement.", ar: "المبلغ الإجمالي المعتمد بموجب اتفاقية الائتمan." },
   amountUsed: { en: "The portion of financing that has been disbursed to date.", ar: "الجزء من التمويل الذي تم صرفه حتى تاريخه." },
   currency: { en: "Select the currency of the financing.", ar: "اختر عملة التمويل." },
   typeOfFacility: { en: "The term length of the financial facility.", ar: "مدة التسهيل المالي." },
   facilityClassification: { en: "Current status of the facility's performance.", ar: "الحالة الحالية لأداء التسهيل." },
   usageType: { en: "Specify the status of the facility usage.", ar: "حدد حالة استخدام التسهيل." },
-  dateOfCreditApproval: { en: "The official start date of the credit contract.", ar: "تاريخ البدء الرسمي لعقد الائتمان." },
+  dateOfCreditApproval: { en: "The official start date of the credit contract.", ar: "تاريخ البدء الرسمي لعقد الائتمan." },
   fundedUnderInitiative: { en: "e.g., GEFF, EPAP, CBE initiative, etc.", ar: "مثال: GEFF، EPAP، مبادرة البنك المركزي، إلخ." },
   environmentalConsultantUsed: { en: "Was a certified environmental consultant used to assess the project?", ar: "هل تم استخدام استشاري بيئي معتمد لتقييم المشروع؟" },
   sustainabilityAxis: { en: "Select the primary sustainability category for the project.", ar: "اختر فئة الاستدامة الرئيسية للمشروع." },
@@ -86,24 +86,24 @@ const socialAxes = [
 const defaultFormValues: NewProjectFormValues = {
   companyName: "",
   unifiedCommercialRegNo: "",
-  companyType: "صناعي",
-  sector: "خاص",
-  companySize: "صغير",
+  companyType: "",
+  sector: "",
+  companySize: "",
   isicCodeL4: "",
   totalFinancingAmount: 0,
   amountUsed: 0,
-  currency: "جنيه مصري",
-  typeOfFacility: "قصير الأجل",
-  facilityClassification: "عامل",
-  usageType: "تسهيل جديد",
+  currency: "",
+  typeOfFacility: "",
+  facilityClassification: "",
+  usageType: "",
   dateOfCreditApproval: new Date(),
   fundedUnderInitiative: "",
   environmentalConsultantUsed: false,
   isSustainabilityProject: false,
   sustainabilityAxis: "",
   purposeOfFinancing: "",
-  environmentalSocialClassification: "بيئي",
-  classificationMethod: "نشاط الشركة",
+  environmentalSocialClassification: "",
+  classificationMethod: "",
   impactIndicators: "",
   supportingDocuments: null,
 };
@@ -229,7 +229,7 @@ export function AddProjectForm() {
               <FormField name="companyType" control={form.control} render={({ field }) => (
                 <FormItem>
                   <FormLabel className="flex items-center gap-2">Company Type <InfoTooltip info={formFieldsInfo.companyType} /></FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select company type" /></SelectTrigger></FormControl>
                     <SelectContent>
                       <SelectItem value="صناعي">صناعي</SelectItem>
@@ -243,7 +243,7 @@ export function AddProjectForm() {
               <FormField name="sector" control={form.control} render={({ field }) => (
                 <FormItem>
                   <FormLabel className="flex items-center gap-2">Sector <InfoTooltip info={formFieldsInfo.sector} /></FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value} onOpenChange={(open) => !open && handleFetchSuggestions()}>
+                  <Select onValueChange={field.onChange} value={field.value} onOpenChange={(open) => !open && handleFetchSuggestions()}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select sector" /></SelectTrigger></FormControl>
                     <SelectContent>
                       <SelectItem value="عام">عام</SelectItem>
@@ -256,7 +256,7 @@ export function AddProjectForm() {
               <FormField name="companySize" control={form.control} render={({ field }) => (
                 <FormItem>
                   <FormLabel className="flex items-center gap-2">Company Size <InfoTooltip info={formFieldsInfo.companySize} /></FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select company size" /></SelectTrigger></FormControl>
                     <SelectContent>
                       <SelectItem value="صغير">صغير</SelectItem>
@@ -297,7 +297,7 @@ export function AddProjectForm() {
               <FormField name="currency" control={form.control} render={({ field }) => (
                 <FormItem>
                   <FormLabel className="flex items-center gap-2">Currency <InfoTooltip info={formFieldsInfo.currency} /></FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select currency" /></SelectTrigger></FormControl>
                     <SelectContent>
                       <SelectItem value="جنيه مصري">جنيه مصري</SelectItem>
@@ -310,7 +310,7 @@ export function AddProjectForm() {
                <FormField name="typeOfFacility" control={form.control} render={({ field }) => (
                 <FormItem>
                   <FormLabel className="flex items-center gap-2">Type of Facility <InfoTooltip info={formFieldsInfo.typeOfFacility} /></FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select facility type" /></SelectTrigger></FormControl>
                     <SelectContent>
                       <SelectItem value="قصير الأجل">قصير الأجل</SelectItem>
@@ -324,7 +324,7 @@ export function AddProjectForm() {
                <FormField name="facilityClassification" control={form.control} render={({ field }) => (
                 <FormItem>
                   <FormLabel className="flex items-center gap-2">Facility Classification <InfoTooltip info={formFieldsInfo.facilityClassification} /></FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select classification" /></SelectTrigger></FormControl>
                     <SelectContent>
                       <SelectItem value="عامل">عامل</SelectItem>
@@ -337,7 +337,7 @@ export function AddProjectForm() {
                <FormField name="usageType" control={form.control} render={({ field }) => (
                 <FormItem>
                   <FormLabel className="flex items-center gap-2">Usage Type <InfoTooltip info={formFieldsInfo.usageType} /></FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select usage type" /></SelectTrigger></FormControl>
                     <SelectContent>
                       <SelectItem value="تسهيل جديد">تسهيل جديد</SelectItem>
@@ -439,7 +439,7 @@ export function AddProjectForm() {
                     <Select onValueChange={(value) => {
                       field.onChange(value);
                       form.setValue("sustainabilityAxis", ""); // Reset axis on change
-                    }} defaultValue={field.value}>
+                    }} value={field.value}>
                       <FormControl><SelectTrigger><SelectValue placeholder="Select classification" /></SelectTrigger></FormControl>
                       <SelectContent>
                         <SelectItem value="بيئي">بيئي</SelectItem>
@@ -473,7 +473,7 @@ export function AddProjectForm() {
                 <FormField name="classificationMethod" control={form.control} render={({ field }) => (
                   <FormItem>
                     <FormLabel className="flex items-center gap-2">Classification Method <InfoTooltip info={formFieldsInfo.classificationMethod} /></FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl><SelectTrigger><SelectValue placeholder="Select method" /></SelectTrigger></FormControl>
                       <SelectContent>
                         <SelectItem value="نشاط الشركة">نشاط الشركة</SelectItem>
