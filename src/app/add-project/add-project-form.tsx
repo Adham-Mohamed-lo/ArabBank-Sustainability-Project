@@ -83,6 +83,31 @@ const socialAxes = [
   { value: "التعليم", label: "التعليم" },
 ];
 
+const defaultFormValues: NewProjectFormValues = {
+  companyName: "",
+  unifiedCommercialRegNo: "",
+  companyType: "صناعي",
+  sector: "خاص",
+  companySize: "صغير",
+  isicCodeL4: "",
+  totalFinancingAmount: 0,
+  amountUsed: 0,
+  currency: "جنيه مصري",
+  typeOfFacility: "قصير الأجل",
+  facilityClassification: "عامل",
+  usageType: "تسهيل جديد",
+  dateOfCreditApproval: new Date(),
+  fundedUnderInitiative: "",
+  environmentalConsultantUsed: false,
+  isSustainabilityProject: false,
+  sustainabilityAxis: "",
+  purposeOfFinancing: "",
+  environmentalSocialClassification: "بيئي",
+  classificationMethod: "نشاط الشركة",
+  impactIndicators: "",
+  supportingDocuments: null,
+};
+
 export function AddProjectForm() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
@@ -91,16 +116,7 @@ export function AddProjectForm() {
 
   const form = useForm<NewProjectFormValues>({
     resolver: zodResolver(newProjectSchema),
-    defaultValues: {
-      companyName: "",
-      unifiedCommercialRegNo: "",
-      isicCodeL4: "",
-      totalFinancingAmount: 0,
-      amountUsed: 0,
-      fundedUnderInitiative: "",
-      environmentalConsultantUsed: false,
-      isSustainabilityProject: false,
-    },
+    defaultValues: defaultFormValues,
   });
 
   const watchedValues = form.watch();
@@ -168,7 +184,7 @@ export function AddProjectForm() {
       description: "The new project data has been sent.",
     });
     localStorage.removeItem(LOCAL_STORAGE_KEY);
-    form.reset();
+    form.reset(defaultFormValues);
   }
   
   function onSaveDraft() {
@@ -181,7 +197,7 @@ export function AddProjectForm() {
 
   function onClearDraft() {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
-    form.reset();
+    form.reset(defaultFormValues);
     toast({
       title: "Draft Cleared",
       description: "The form has been reset.",
@@ -520,5 +536,3 @@ export function AddProjectForm() {
     </Form>
   );
 }
-
-    
