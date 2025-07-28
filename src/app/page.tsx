@@ -94,7 +94,7 @@ export default function DashboardPage() {
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">1,234</div>
+            <div className="text-2xl font-bold">6</div>
             <p className="text-xs text-muted-foreground">
               clients with sustainability projects
             </p>
@@ -108,9 +108,9 @@ export default function DashboardPage() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">EGP 45,231,890</div>
+            <div className="text-2xl font-bold">EGP 31,200,000</div>
             <p className="text-xs text-muted-foreground">
-              +20.1% from last month
+              in active & completed projects
             </p>
           </CardContent>
         </Card>
@@ -120,7 +120,7 @@ export default function DashboardPage() {
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+573</div>
+            <div className="text-2xl font-bold">2</div>
             <p className="text-xs text-muted-foreground">
               currently ongoing
             </p>
@@ -132,14 +132,14 @@ export default function DashboardPage() {
             <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">+212</div>
+            <div className="text-2xl font-bold">2</div>
             <p className="text-xs text-muted-foreground">
               successfully finished
             </p>
           </CardContent>
         </Card>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-4">
         <Card>
           <CardHeader>
             <CardTitle>Financing by Industrial Sector</CardTitle>
@@ -170,65 +170,67 @@ export default function DashboardPage() {
             </ChartContainer>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Financing by Environmental Sector</CardTitle>
-            <CardDescription>
-              Financing issued for projects in key environmental sectors.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="pl-2">
-            <ChartContainer config={chartConfigEnvSectors} className="h-[300px] w-full">
-              <BarChart accessibilityLayer data={environmentalSectorsData} margin={{ left: 10, right: 10 }}>
-                <CartesianGrid vertical={false} />
-                <XAxis
-                  dataKey="sector"
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                  tickFormatter={(value) => value.slice(0, 10)}
-                />
-                 <YAxis 
-                  tickFormatter={(value) => `EGP ${Number(value) / 1000000}M`}
-                />
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent indicator="dot" />}
-                />
-                <Bar dataKey="financing" fill="var(--color-chart-2)" radius={4} />
-              </BarChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Financing by Social Sector</CardTitle>
-             <CardDescription>
-              Financing issued for projects in key social sectors.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="pl-2">
-             <ChartContainer config={chartConfigSocialSectors} className="h-[300px] w-full">
-              <BarChart accessibilityLayer data={socialSectorsData} margin={{ left: 10, right: 10 }}>
-                <CartesianGrid vertical={false} />
-                <XAxis
-                  dataKey="sector"
-                  tickLine={false}
-                  tickMargin={10}
-                  axisLine={false}
-                />
-                 <YAxis 
-                  tickFormatter={(value) => `EGP ${Number(value) / 1000000}M`}
-                />
-                <ChartTooltip
-                  cursor={false}
-                  content={<ChartTooltipContent indicator="dot" />}
-                />
-                <Bar dataKey="financing" fill="var(--color-chart-1)" radius={4} />
-              </BarChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
+        <div className="grid gap-4 md:grid-cols-2">
+            <Card>
+            <CardHeader>
+                <CardTitle>Financing by Environmental Sector</CardTitle>
+                <CardDescription>
+                Financing issued for projects in key environmental sectors.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="pl-2">
+                <ChartContainer config={chartConfigEnvSectors} className="h-[300px] w-full">
+                <BarChart accessibilityLayer data={environmentalSectorsData} margin={{ left: 10, right: 10 }}>
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                    dataKey="sector"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    tickFormatter={(value) => value.slice(0, 10)}
+                    />
+                    <YAxis 
+                    tickFormatter={(value) => `EGP ${Number(value) / 1000000}M`}
+                    />
+                    <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent indicator="dot" />}
+                    />
+                    <Bar dataKey="financing" fill="var(--color-chart-2)" radius={4} />
+                </BarChart>
+                </ChartContainer>
+            </CardContent>
+            </Card>
+            <Card>
+            <CardHeader>
+                <CardTitle>Financing by Social Sector</CardTitle>
+                <CardDescription>
+                Financing issued for projects in key social sectors.
+                </CardDescription>
+            </CardHeader>
+            <CardContent className="pl-2">
+                <ChartContainer config={chartConfigSocialSectors} className="h-[300px] w-full">
+                <BarChart accessibilityLayer data={socialSectorsData} margin={{ left: 10, right: 10 }}>
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                    dataKey="sector"
+                    tickLine={false}
+                    tickMargin={10}
+                    axisLine={false}
+                    />
+                    <YAxis 
+                    tickFormatter={(value) => `EGP ${Number(value) / 1000000}M`}
+                    />
+                    <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent indicator="dot" />}
+                    />
+                    <Bar dataKey="financing" fill="var(--color-chart-1)" radius={4} />
+                </BarChart>
+                </ChartContainer>
+            </CardContent>
+            </Card>
+        </div>
       </div>
        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
         <Card className="lg:col-span-2">

@@ -1,39 +1,39 @@
 
 export const environmentalSectorsData = [
-  { sector: "Renewable Energy", financing: 12500000 },
-  { sector: "Water Management", financing: 8200000 },
-  { sector: "Waste Management", financing: 6800000 },
-  { sector: "Smart Agriculture", financing: 3300000 },
+  { sector: "Renewable Energy", financing: 5000000 },
+  { sector: "Water Management", financing: 1200000 },
+  { sector: "Waste Management", financing: 0 },
+  { sector: "Smart Agriculture", financing: 0 },
 ];
 
 export const socialSectorsData = [
-  { sector: "Healthcare", financing: 9100000 },
-  { sector: "Education", financing: 5300000 },
+  { sector: "Healthcare", financing: 25000000 },
+  { sector: "Education", financing: 0 },
 ];
 
 export const industrialSectorsData = [
-  { sector: "Electricity", financing: 15000000 },
-  { sector: "Cement", financing: 9500000 },
-  { sector: "Fertilizers", financing: 7200000 },
-  { sector: "Iron & Steel", financing: 11800000 },
-  { sector: "Aluminum", financing: 8500000 },
-  { sector: "Green Hydrogen", financing: 4000000 },
+  { sector: "Electricity", financing: 5000000 },
+  { sector: "Cement", financing: 0 },
+  { sector: "Fertilizers", financing: 0 },
+  { sector: "Iron & Steel", financing: 0 },
+  { sector: "Aluminum", financing: 0 },
+  { sector: "Green Hydrogen", financing: 0 },
 ];
 
 export const financingByCompanySizeData = [
-    { companySize: "Small", financing: 19000000 },
-    { companySize: "Medium", financing: 20000000 },
-    { companySize: "Large", financing: 6200000 },
+    { companySize: "Small", financing: 1200000 },
+    { companySize: "Medium", financing: 1500000 },
+    { companySize: "Large", financing: 28500000 },
 ];
 
 export const financingBySustainabilityType = [
-  { type: "Environmental", financing: 27800000 },
-  { type: "Social", financing: 17400000 },
+  { type: "Environmental", financing: 6200000 },
+  { type: "Social", financing: 25000000 },
 ]
 
 export const financingByCbamData = [
-  { type: "CBAM Affected", financing: 11500000 },
-  { type: "Not Affected", financing: 33731890 },
+  { type: "CBAM Affected", financing: 3500000 },
+  { type: "Not Affected", financing: 27700000 },
 ];
 
 export const COLORS = ["#0056b3", "#007bff", "#F39C12", "#8E44AD", "#2ECC71"];
