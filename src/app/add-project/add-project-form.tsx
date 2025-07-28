@@ -123,7 +123,6 @@ export function AddProjectForm() {
     defaultValues: defaultFormValues,
   });
 
-  const watchedValues = form.watch();
   const isSustainabilityProject = form.watch("isSustainabilityProject");
   const exportsProducts = form.watch("exportsProducts");
   const envSocialClassification = form.watch("environmentalSocialClassification");
