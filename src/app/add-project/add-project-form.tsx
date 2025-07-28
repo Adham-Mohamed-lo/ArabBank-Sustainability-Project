@@ -44,6 +44,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
 
 const formFieldsInfo = {
+  isSustainabilityProject: { en: "Check this if the project has specific sustainability goals.", ar: "حدد هذا الخيار إذا كان للمشروع أهداف استدامة محددة."},
   companyName: { en: "Full legal name of the company receiving financing.", ar: "الاسم القانوني الكامل للشركة المستفيدة من التمويل." },
   unifiedCommercialRegNo: { en: "18-digit identifier (12 for registration, 3 for office, 3 for governorate).", ar: "معرف مكون من 18 رقمًا (12 للتسجيل، 3 للمكتب، 3 للمحافظة)." },
   companyType: { en: "Choose the company's primary operational category.", ar: "اختر الفئة التشغيلية الأساسية للشركة." },
@@ -85,13 +86,12 @@ export function AddProjectForm() {
       amountUsed: 0,
       fundedUnderInitiative: "",
       environmentalConsultantUsed: false,
-      sustainabilityAxis: "",
-      purposeOfFinancing: "",
-      impactIndicators: "",
+      isSustainabilityProject: false,
     },
   });
 
   const watchedValues = form.watch();
+  const isSustainabilityProject = form.watch("isSustainabilityProject");
 
   const handleFetchSuggestions = useCallback(async () => {
     const { sector, purposeOfFinancing } = form.getValues();
@@ -153,7 +153,7 @@ export function AddProjectForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <Accordion type="multiple" defaultValue={["item-1", "item-2", "item-3"]} className="w-full">
+        <Accordion type="multiple" defaultValue={["item-1", "item-2"]} className="w-full">
           <AccordionItem value="item-1">
             <AccordionTrigger className="text-xl font-semibold">Client Information</AccordionTrigger>
             <AccordionContent className="grid md:grid-cols-2 gap-6 pt-4">
@@ -353,99 +353,122 @@ export function AddProjectForm() {
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="item-3">
-            <AccordionTrigger className="text-xl font-semibold">Sustainability Details</AccordionTrigger>
-            <AccordionContent className="grid md:grid-cols-2 gap-6 pt-4">
-              <FormField name="sustainabilityAxis" control={form.control} render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2">Sustainability Axis <InfoTooltip info={formFieldsInfo.sustainabilityAxis} /></FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl><SelectTrigger><SelectValue placeholder="Select axis" /></SelectTrigger></FormControl>
-                    <SelectContent>
-                      <SelectItem value="الطاقة المتجددة">الطاقة المتجددة</SelectItem>
-                      <SelectItem value="المياه">المياه</SelectItem>
-                      <SelectItem value="المخلفات">المخلفات</SelectItem>
-                      <SelectItem value="الصحة">الصحة</SelectItem>
-                      <SelectItem value="التعليم">التعليم</SelectItem>
-                      <SelectItem value="الزراعة الذكية">الزراعة الذكية</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )} />
-              <FormField name="purposeOfFinancing" control={form.control} render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2">Purpose of Financing <InfoTooltip info={formFieldsInfo.purposeOfFinancing} /></FormLabel>
-                  <FormControl><Input placeholder="e.g., Solar panel installation" {...field} onBlur={handleFetchSuggestions} /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
-              <FormField name="environmentalSocialClassification" control={form.control} render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2">Environmental/Social Classification <InfoTooltip info={formFieldsInfo.environmentalSocialClassification} /></FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl><SelectTrigger><SelectValue placeholder="Select classification" /></SelectTrigger></FormControl>
-                    <SelectContent>
-                      <SelectItem value="بيئي">بيئي</SelectItem>
-                      <SelectItem value="اجتماعي">اجتماعي</SelectItem>
-                      <SelectItem value="كلاهما">كلاهما</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )} />
-              <FormField name="classificationMethod" control={form.control} render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2">Classification Method <InfoTooltip info={formFieldsInfo.classificationMethod} /></FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <FormControl><SelectTrigger><SelectValue placeholder="Select method" /></SelectTrigger></FormControl>
-                    <SelectContent>
-                      <SelectItem value="نشاط الشركة">نشاط الشركة</SelectItem>
-                      <SelectItem value="نوع المشروع المحدد">نوع المشروع المحدد</SelectItem>
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )} />
-              <div className="md:col-span-2">
-                <FormField name="impactIndicators" control={form.control} render={({ field }) => (
-                    <FormItem>
-                    <FormLabel className="flex items-center gap-2">Impact Indicators <InfoTooltip info={formFieldsInfo.impactIndicators} /></FormLabel>
-                    <FormControl><Textarea placeholder="Describe the expected impact..." {...field} /></FormControl>
+          <FormField
+            control={form.control}
+            name="isSustainabilityProject"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                <div className="space-y-0.5">
+                  <FormLabel className="text-base flex items-center gap-2">
+                    Is this a Sustainability Project?
+                    <InfoTooltip info={formFieldsInfo.isSustainabilityProject} />
+                  </FormLabel>
+                </div>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+
+          {isSustainabilityProject && (
+            <AccordionItem value="item-3">
+              <AccordionTrigger className="text-xl font-semibold">Sustainability Details</AccordionTrigger>
+              <AccordionContent className="grid md:grid-cols-2 gap-6 pt-4">
+                <FormField name="sustainabilityAxis" control={form.control} render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">Sustainability Axis <InfoTooltip info={formFieldsInfo.sustainabilityAxis} /></FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl><SelectTrigger><SelectValue placeholder="Select axis" /></SelectTrigger></FormControl>
+                      <SelectContent>
+                        <SelectItem value="الطاقة المتجددة">الطاقة المتجددة</SelectItem>
+                        <SelectItem value="المياه">المياه</SelectItem>
+                        <SelectItem value="المخلفات">المخلفات</SelectItem>
+                        <SelectItem value="الصحة">الصحة</SelectItem>
+                        <SelectItem value="التعليم">التعليم</SelectItem>
+                        <SelectItem value="الزراعة الذكية">الزراعة الذكية</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
-                    </FormItem>
+                  </FormItem>
                 )} />
-                {(isLoadingSuggestions || suggestions.length > 0) && (
-                    <Alert className="mt-4">
-                        <Lightbulb className="h-4 w-4" />
-                        <AlertTitle>Suggestion</AlertTitle>
-                        <AlertDescription>
-                        {isLoadingSuggestions ? (
-                            <div className="flex items-center">
-                            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                            Generating suggestions...
-                            </div>
-                        ) : (
-                            <>
-                            Based on the project details, you could also consider these indicators:
-                            <ul className="list-disc pl-5 mt-2">
-                                {suggestions.map((s, i) => <li key={i}>{s}</li>)}
-                            </ul>
-                            </>
-                        )}
-                        </AlertDescription>
-                    </Alert>
-                )}
-              </div>
-              <FormField name="supportingDocuments" control={form.control} render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2">Supporting Documents <InfoTooltip info={formFieldsInfo.supportingDocuments} /></FormLabel>
-                  <FormControl><Input type="file" {...field} /></FormControl>
-                  <FormMessage />
-                </FormItem>
-              )} />
-            </AccordionContent>
-          </AccordionItem>
+                <FormField name="purposeOfFinancing" control={form.control} render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">Purpose of Financing <InfoTooltip info={formFieldsInfo.purposeOfFinancing} /></FormLabel>
+                    <FormControl><Input placeholder="e.g., Solar panel installation" {...field} onBlur={handleFetchSuggestions} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField name="environmentalSocialClassification" control={form.control} render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">Environmental/Social Classification <InfoTooltip info={formFieldsInfo.environmentalSocialClassification} /></FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl><SelectTrigger><SelectValue placeholder="Select classification" /></SelectTrigger></FormControl>
+                      <SelectContent>
+                        <SelectItem value="بيئي">بيئي</SelectItem>
+                        <SelectItem value="اجتماعي">اجتماعي</SelectItem>
+                        <SelectItem value="كلاهما">كلاهما</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField name="classificationMethod" control={form.control} render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">Classification Method <InfoTooltip info={formFieldsInfo.classificationMethod} /></FormLabel>
+                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                      <FormControl><SelectTrigger><SelectValue placeholder="Select method" /></SelectTrigger></FormControl>
+                      <SelectContent>
+                        <SelectItem value="نشاط الشركة">نشاط الشركة</SelectItem>
+                        <SelectItem value="نوع المشروع المحدد">نوع المشروع المحدد</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <div className="md:col-span-2">
+                  <FormField name="impactIndicators" control={form.control} render={({ field }) => (
+                      <FormItem>
+                      <FormLabel className="flex items-center gap-2">Impact Indicators <InfoTooltip info={formFieldsInfo.impactIndicators} /></FormLabel>
+                      <FormControl><Textarea placeholder="Describe the expected impact..." {...field} /></FormControl>
+                      <FormMessage />
+                      </FormItem>
+                  )} />
+                  {(isLoadingSuggestions || suggestions.length > 0) && (
+                      <Alert className="mt-4">
+                          <Lightbulb className="h-4 w-4" />
+                          <AlertTitle>Suggestion</AlertTitle>
+                          <AlertDescription>
+                          {isLoadingSuggestions ? (
+                              <div className="flex items-center">
+                              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                              Generating suggestions...
+                              </div>
+                          ) : (
+                              <>
+                              Based on the project details, you could also consider these indicators:
+                              <ul className="list-disc pl-5 mt-2">
+                                  {suggestions.map((s, i) => <li key={i}>{s}</li>)}
+                              </ul>
+                              </>
+                          )}
+                          </AlertDescription>
+                      </Alert>
+                  )}
+                </div>
+                <FormField name="supportingDocuments" control={form.control} render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">Supporting Documents <InfoTooltip info={formFieldsInfo.supportingDocuments} /></FormLabel>
+                    <FormControl><Input type="file" {...field} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+              </AccordionContent>
+            </AccordionItem>
+           )}
         </Accordion>
         <div className="flex justify-end gap-4">
           <Button type="button" variant="outline" onClick={onSaveDraft}>Save Draft</Button>

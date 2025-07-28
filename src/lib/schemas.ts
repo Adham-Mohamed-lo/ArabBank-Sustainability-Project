@@ -19,16 +19,57 @@ export const newProjectSchema = z.object({
   dateOfCreditApproval: z.date(),
   fundedUnderInitiative: z.string().optional(),
   environmentalConsultantUsed: z.boolean().default(false),
+  
+  // Sustainability Check
+  isSustainabilityProject: z.boolean().default(false),
 
-  // Section 3: Sustainability Details
-  sustainabilityAxis: z.string().min(1, "Sustainability Axis is required."),
-  purposeOfFinancing: z.string().min(1, "Purpose of Financing is required."),
-  environmentalSocialClassification: z.enum(["بيئي", "اجتماعي", "كلاهما"]),
-  classificationMethod: z.enum(["نشاط الشركة", "نوع المشروع المحدد"]),
-  impactIndicators: z.string().min(1, "Impact Indicators are required."),
+  // Section 3: Sustainability Details (now conditional)
+  sustainabilityAxis: z.string().optional(),
+  purposeOfFinancing: z.string().optional(),
+  environmentalSocialClassification: z.enum(["بيئي", "اجتماعي", "كلاهما"]).optional(),
+  classificationMethod: z.enum(["نشاط الشركة", "نوع المشروع المحدد"]).optional(),
+  impactIndicators: z.string().optional(),
   
   // Optional file upload
   supportingDocuments: z.any().optional(),
+}).superRefine((data, ctx) => {
+    if (data.isSustainabilityProject) {
+        if (!data.sustainabilityAxis) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                path: ['sustainabilityAxis'],
+                message: 'Sustainability Axis is required for sustainability projects.',
+            });
+        }
+        if (!data.purposeOfFinancing) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                path: ['purposeOfFinancing'],
+                message: 'Purpose of Financing is required for sustainability projects.',
+            });
+        }
+        if (!data.environmentalSocialClassification) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                path: ['environmentalSocialClassification'],
+                message: 'Environmental/Social Classification is required for sustainability projects.',
+            });
+        }
+        if (!data.classificationMethod) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                path: ['classificationMethod'],
+                message: 'Classification Method is required for sustainability projects.',
+            });
+        }
+        if (!data.impactIndicators) {
+            ctx.addIssue({
+                code: z.ZodIssueCode.custom,
+                path: ['impactIndicators'],
+                message: 'Impact Indicators are required for sustainability projects.',
+            });
+        }
+    }
 });
 
 export type NewProjectFormValues = z.infer<typeof newProjectSchema>;
