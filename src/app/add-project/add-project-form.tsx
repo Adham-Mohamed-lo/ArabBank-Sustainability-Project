@@ -179,6 +179,16 @@ export function AddProjectForm() {
     });
   }
 
+  function onClearDraft() {
+    localStorage.removeItem(LOCAL_STORAGE_KEY);
+    form.reset();
+    toast({
+      title: "Draft Cleared",
+      description: "The form has been reset.",
+      variant: "destructive",
+    });
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -499,6 +509,7 @@ export function AddProjectForm() {
            )}
         </Accordion>
         <div className="flex justify-end gap-4">
+          <Button type="button" variant="destructive" onClick={onClearDraft}>Clear Draft</Button>
           <Button type="button" variant="outline" onClick={onSaveDraft}>Save Draft</Button>
           <Button type="submit" disabled={form.formState.isSubmitting}>
              {form.formState.isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -509,3 +520,5 @@ export function AddProjectForm() {
     </Form>
   );
 }
+
+    
