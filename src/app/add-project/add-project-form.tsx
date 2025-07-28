@@ -109,11 +109,12 @@ export function AddProjectForm() {
 
   useEffect(() => {
     if (isSustainabilityProject) {
-        setActiveAccordionItems((prev) => [...prev, "item-3"]);
+        setActiveAccordionItems((prev) => [...new Set([...prev, "item-3"])]);
     } else {
         setActiveAccordionItems((prev) => prev.filter((item) => item !== "item-3"));
     }
   }, [isSustainabilityProject]);
+
 
   const sustainabilityAxesOptions = React.useMemo(() => {
     if (envSocialClassification === "بيئي") return environmentalAxes;
@@ -164,7 +165,7 @@ export function AddProjectForm() {
     console.log(values);
     toast({
       title: "Project Submitted",
-      description: "The new project data has been sent to Head Office.",
+      description: "The new project data has been sent.",
     });
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     form.reset();
@@ -501,7 +502,7 @@ export function AddProjectForm() {
           <Button type="button" variant="outline" onClick={onSaveDraft}>Save Draft</Button>
           <Button type="submit" disabled={form.formState.isSubmitting}>
              {form.formState.isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Submit to Head Office
+            Submit
           </Button>
         </div>
       </form>
