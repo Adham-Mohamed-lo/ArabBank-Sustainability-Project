@@ -6,8 +6,6 @@ export const financingBySectorData = [
   { sector: "Healthcare", financing: 9100000 },
   { sector: "Education", financing: 5300000 },
   { sector: "Smart Agriculture", financing: 3300000 },
-  { sector: "Environmental", financing: 11500000 },
-  { sector: "Social", financing: 7800000 },
 ];
 
 export const financingByCompanySizeData = [
@@ -16,6 +14,11 @@ export const financingByCompanySizeData = [
     { companySize: "Medium", financing: 20000000 },
     { companySize: "Large", financing: 6200000 },
 ];
+
+export const financingBySustainabilityType = [
+  { type: "Environmental", financing: 27800000 },
+  { type: "Social", financing: 17400000 },
+]
 
 export const COLORS = ["#0056b3", "#007bff", "#F39C12", "#8E44AD", "#2ECC71"];
 

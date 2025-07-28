@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { DollarSign, Banknote, Activity, CheckCircle2, Users } from "lucide-react";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Pie, PieChart, Cell } from "recharts";
-import { financingBySectorData, financingByCompanySizeData, COLORS } from "@/lib/data";
+import { financingBySectorData, financingByCompanySizeData, COLORS, financingBySustainabilityType } from "@/lib/data";
 
 const chartConfigSector = {
   financing: {
@@ -26,6 +26,15 @@ const chartConfigSize = {
   }, {}),
 };
 
+const chartConfigSustain = {
+  financing: {
+    label: "Financing (EGP)",
+  },
+  ...financingBySustainabilityType.reduce((acc, entry) => {
+    acc[entry.type] = { label: entry.type };
+    return acc;
+  }, {}),
+};
 
 export default function DashboardPage() {
   return (
@@ -134,13 +143,36 @@ export default function DashboardPage() {
              <ChartContainer config={chartConfigSize} className="h-[300px] w-full">
                 <PieChart>
                     <ChartTooltip content={<ChartTooltipContent nameKey="financing" hideLabel />} />
-                    <Pie data={financingByCompanySizeData} dataKey="financing" nameKey="companySize" cx="50%" cy="50%" outerRadius={120} >
+                    <Pie data={financingByCompanySizeData} dataKey="financing" nameKey="companySize" cx="50%" cy="50%" outerRadius={100} >
                         {financingByCompanySizeData.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
                     </Pie>
                     <ChartLegend content={<ChartLegendContent nameKey="companySize" />} />
                 </PieChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+      </div>
+      <div className="grid gap-4 md:grid-cols-1">
+        <Card>
+          <CardHeader>
+            <CardTitle>Financing by Sustainability Type</CardTitle>
+            <CardDescription>
+              A high-level breakdown of financing for Environmental vs. Social projects.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfigSustain} className="h-[250px] w-full">
+              <PieChart>
+                  <ChartTooltip content={<ChartTooltipContent nameKey="financing" hideLabel />} />
+                  <Pie data={financingBySustainabilityType} dataKey="financing" nameKey="type" cx="50%" cy="50%" innerRadius={60} outerRadius={100} >
+                      {financingBySustainabilityType.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                  </Pie>
+                  <ChartLegend content={<ChartLegendContent nameKey="type" />} />
+              </PieChart>
             </ChartContainer>
           </CardContent>
         </Card>
