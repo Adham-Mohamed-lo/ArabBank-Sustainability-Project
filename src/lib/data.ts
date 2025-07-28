@@ -1,39 +1,39 @@
 
 export const environmentalSectorsData = [
-  { sector: "Renewable Energy", financing: 11000000 },
-  { sector: "Water Management", financing: 4800000 },
-  { sector: "Waste Management", financing: 2100000 },
-  { sector: "Smart Agriculture", financing: 3600000 },
+  { sector: "Renewable Energy", financing: 110000000 },
+  { sector: "Water Management", financing: 48000000 },
+  { sector: "Waste Management", financing: 21000000 + 42000000 },
+  { sector: "Smart Agriculture", financing: 36000000 + 55000000 },
 ];
 
 export const socialSectorsData = [
-  { sector: "Healthcare", financing: 50000000 },
-  { sector: "Education", financing: 22000000 },
+  { sector: "Healthcare", financing: 500000000 + 350000000 },
+  { sector: "Education", financing: 220000000 + 180000000 },
 ];
 
 export const industrialSectorsData = [
-    { sector: "Electricity", financing: 7500000 },
-    { sector: "Cement", financing: 8200000 },
-    { sector: "Fertilizers", financing: 3000000 },
-    { sector: "Iron & Steel", financing: 6800000 },
-    { sector: "Aluminum", financing: 2500000 },
-    { sector: "Green Hydrogen", financing: 1000000 },
+    { sector: "Electricity", financing: 75000000 },
+    { sector: "Cement", financing: 82000000 },
+    { sector: "Fertilizers", financing: 30000000 },
+    { sector: "Iron & Steel", financing: 68000000 + 95000000 },
+    { sector: "Aluminum", financing: 25000000 },
+    { sector: "Green Hydrogen", financing: 10000000 },
 ];
 
 export const financingByCompanySizeData = [
-    { companySize: "Small", financing: 12400000 },
-    { companySize: "Medium", financing: 35000000 },
-    { companySize: "Large", financing: 64200000 },
+    { companySize: "Small", financing: 124000000 + 55000000 },
+    { companySize: "Medium", financing: 350000000 + 42000000 + 180000000 },
+    { companySize: "Large", financing: 642000000 + 350000000 + 95000000 },
 ];
 
 export const financingBySustainabilityType = [
-  { type: "Environmental", financing: 41500000 },
-  { type: "Social", financing: 72000000 },
+  { type: "Environmental", financing: 415000000 + 42000000 + 55000000 + 95000000 },
+  { type: "Social", financing: 720000000 + 350000000 + 180000000 },
 ]
 
 export const financingByCbamData = [
-  { type: "CBAM Affected", financing: 55000000 },
-  { type: "Not Affected", financing: 58500000 },
+  { type: "CBAM Affected", financing: 550000000 + 95000000 },
+  { type: "Not Affected", financing: 585000000 + 42000000 + 55000000 + 350000000 + 180000000},
 ];
 
 export const COLORS = ["#0056b3", "#007bff", "#F39C12", "#8E44AD", "#2ECC71"];
@@ -42,8 +42,8 @@ const projectsForClient1 = [
     {
       id: 101,
       purposeOfFinancing: "تركيب ألواح شمسية لسقف المصنع",
-      totalFinancingAmount: 7500000,
-      amountUsed: 7500000,
+      totalFinancingAmount: 75000000,
+      amountUsed: 75000000,
       currency: "جنيه مصري",
       typeOfFacility: "طويل الأجل",
       facilityClassification: "عامل",
@@ -60,8 +60,8 @@ const projectsForClient1 = [
     {
       id: 102,
       purposeOfFinancing: "تحديث نظام الإضاءة إلى نظام موفر للطاقة",
-      totalFinancingAmount: 3500000,
-      amountUsed: 2200000,
+      totalFinancingAmount: 35000000,
+      amountUsed: 22000000,
       currency: "جنيه مصري",
       typeOfFacility: "متوسط الأجل",
       facilityClassification: "عامل",
@@ -81,8 +81,8 @@ const projectsForClient2 = [
     {
         id: 201,
         purposeOfFinancing: "محطة معالجة مياه الصرف الصحي",
-        totalFinancingAmount: 4800000,
-        amountUsed: 4800000,
+        totalFinancingAmount: 48000000,
+        amountUsed: 48000000,
         currency: "جنيه مصري",
         typeOfFacility: "طويل الأجل",
         facilityClassification: "عامل",
@@ -102,8 +102,8 @@ const projectsForClient3 = [
     {
         id: 301,
         purposeOfFinancing: "تطوير مصنع الاسمنت لتقليل الانبعاثات",
-        totalFinancingAmount: 8200000,
-        amountUsed: 4000000,
+        totalFinancingAmount: 82000000,
+        amountUsed: 40000000,
         currency: "جنيه مصري",
         typeOfFacility: "طويل الأجل",
         facilityClassification: "عامل",
@@ -123,8 +123,8 @@ const projectsForClient4 = [
     {
         id: 401,
         purposeOfFinancing: "تجهيز مدارس بالتكنولوجيا الحديثة",
-        totalFinancingAmount: 22000000,
-        amountUsed: 15000000,
+        totalFinancingAmount: 220000000,
+        amountUsed: 150000000,
         currency: "جنيه مصري",
         typeOfFacility: "متوسط الأجل",
         facilityClassification: "عامل",
@@ -144,8 +144,8 @@ const projectsForClient5 = [
     {
         id: 501,
         purposeOfFinancing: "تطبيق أنظمة الري الذكي",
-        totalFinancingAmount: 3600000,
-        amountUsed: 3600000,
+        totalFinancingAmount: 36000000,
+        amountUsed: 36000000,
         currency: "جنيه مصري",
         typeOfFacility: "متوسط الأجل",
         facilityClassification: "عامل",
@@ -166,8 +166,8 @@ const projectsForClient6 = [
     {
         id: 601,
         purposeOfFinancing: "بناء جناح مستشفى جديد",
-        totalFinancingAmount: 50000000,
-        amountUsed: 20000000,
+        totalFinancingAmount: 500000000,
+        amountUsed: 200000000,
         currency: "جنيه مصري",
         typeOfFacility: "طويل الأجل",
         facilityClassification: "عامل",
@@ -179,6 +179,108 @@ const projectsForClient6 = [
         environmentalSocialClassification: "اجتماعي",
         classificationMethod: "نوع المشروع المحدد",
         impactIndicators: "زيادة سعة المستشفى بمقدار 50 سريرًا",
+        status: "نشيط",
+    }
+];
+
+const projectsForClient7 = [
+    {
+      id: 701,
+      purposeOfFinancing: "إنشاء مرفق لإعادة تدوير المخلفات الصلبة",
+      totalFinancingAmount: 42000000,
+      amountUsed: 42000000,
+      currency: "جنيه مصري",
+      typeOfFacility: "طويل الأجل",
+      facilityClassification: "عامل",
+      usageType: "تسهيل جديد",
+      dateOfCreditApproval: new Date("2022-08-25"),
+      fundedUnderInitiative: "EPAP",
+      environmentalConsultantUsed: true,
+      sustainabilityAxis: "المخلفات",
+      environmentalSocialClassification: "بيئي",
+      classificationMethod: "نوع المشروع المحدد",
+      impactIndicators: "إعادة تدوير 5000 طن من المخلفات سنوياً",
+      status: "مكتمل",
+    },
+];
+
+const projectsForClient8 = [
+    {
+      id: 801,
+      purposeOfFinancing: "تمويل زراعة المحاصيل العضوية",
+      totalFinancingAmount: 55000000,
+      amountUsed: 25000000,
+      currency: "جنيه مصري",
+      typeOfFacility: "متوسط الأجل",
+      facilityClassification: "عامل",
+      usageType: "مستخدم حالي",
+      dateOfCreditApproval: new Date("2024-03-10"),
+      fundedUnderInitiative: "",
+      environmentalConsultantUsed: true,
+      sustainabilityAxis: "الزراعة الذكية",
+      environmentalSocialClassification: "بيئي",
+      classificationMethod: "نشاط الشركة",
+      impactIndicators: "زيادة إنتاج المحاصيل العضوية بنسبة 30%",
+      status: "نشيط",
+    },
+];
+
+const projectsForClient9 = [
+    {
+        id: 901,
+        purposeOfFinancing: "شراء أجهزة طبية حديثة للمستشفى",
+        totalFinancingAmount: 350000000,
+        amountUsed: 350000000,
+        currency: "جنيه مصري",
+        typeOfFacility: "طويل الأجل",
+        facilityClassification: "عامل",
+        usageType: "تسهيل جديد",
+        dateOfCreditApproval: new Date("2023-01-15"),
+        fundedUnderInitiative: "CBE Health Initiative",
+        environmentalConsultantUsed: false,
+        sustainabilityAxis: "الصحة",
+        environmentalSocialClassification: "اجتماعي",
+        classificationMethod: "نوع المشروع المحدد",
+        impactIndicators: "توفير خدمات تشخيصية لـ 10,000 مريض إضافي سنوياً",
+        status: "مكتمل",
+    },
+    {
+        id: 902,
+        purposeOfFinancing: "توسيع الفصول الدراسية وبناء مختبرات",
+        totalFinancingAmount: 180000000,
+        amountUsed: 90000000,
+        currency: "جنيه مصري",
+        typeOfFacility: "متوسط الأجل",
+        facilityClassification: "عامل",
+        usageType: "مستخدم حالي",
+        dateOfCreditApproval: new Date("2024-04-01"),
+        fundedUnderInitiative: "CBE Education Initiative",
+        environmentalConsultantUsed: false,
+        sustainabilityAxis: "التعليم",
+        environmentalSocialClassification: "اجتماعي",
+        classificationMethod: "نوع المشروع المحدد",
+        impactIndicators: "زيادة استيعاب الطلاب بنسبة 25%",
+        status: "نشيط",
+    }
+];
+
+const projectsForClient10 = [
+    {
+        id: 1001,
+        purposeOfFinancing: "تحديث أفران مصنع الحديد والصلب",
+        totalFinancingAmount: 95000000,
+        amountUsed: 50000000,
+        currency: "جنيه مصري",
+        typeOfFacility: "طويل الأجل",
+        facilityClassification: "عامل",
+        usageType: "تسهيل جديد",
+        dateOfCreditApproval: new Date("2024-05-20"),
+        fundedUnderInitiative: "CBAM Fund",
+        environmentalConsultantUsed: true,
+        sustainabilityAxis: "الطاقة المتجددة",
+        environmentalSocialClassification: "بيئي",
+        classificationMethod: "نشاط الشركة",
+        impactIndicators: "تقليل الانبعاثات الكربونية بنسبة 20%",
         status: "نشيط",
     }
 ];
@@ -268,5 +370,61 @@ export const mockClientData = [
     contactPerson: "مريم المصري", 
     contactEmail: "mariam.elmasry@medicare.com",
     projects: projectsForClient6,
+  },
+  { 
+    id: 7, 
+    companyName: "Recycle Co.", 
+    sector: "خاص",
+    unifiedCommercialRegNo: "789012345678901234", 
+    companyType: "صناعي", 
+    companySize: "متوسط", 
+    isicCodeL4: "3830",
+    exportsProducts: true,
+    transportsToEu: false,
+    contactPerson: "علي محمود", 
+    contactEmail: "ali.mahmoud@recycleco.com",
+    projects: projectsForClient7,
+  },
+  { 
+    id: 8, 
+    companyName: "Organic Fields", 
+    sector: "خاص",
+    unifiedCommercialRegNo: "890123456789012345", 
+    companyType: "مقاول", 
+    companySize: "صغير", 
+    isicCodeL4: "0128",
+    exportsProducts: true,
+    transportsToEu: true,
+    contactPerson: "سارة عبد الله", 
+    contactEmail: "sara.abdullah@organicfields.com",
+    projects: projectsForClient8,
+  },
+  { 
+    id: 9, 
+    companyName: "Health & Education Foundation", 
+    sector: "عام",
+    unifiedCommercialRegNo: "901234567890123456", 
+    companyType: "خدمي", 
+    companySize: "كبير", 
+    isicCodeL4: "8690",
+    exportsProducts: false,
+    transportsToEu: false,
+    contactPerson: "محمد فتحي", 
+    contactEmail: "mohamed.fathy@he-foundation.com",
+    projects: projectsForClient9,
+  },
+  { 
+    id: 10, 
+    companyName: "National Steel Industries", 
+    sector: "عام",
+    unifiedCommercialRegNo: "012345678901234567", 
+    companyType: "صناعي", 
+    companySize: "كبير", 
+    isicCodeL4: "2410",
+    exportsProducts: true,
+    transportsToEu: true,
+    contactPerson: "هبة شريف", 
+    contactEmail: "heba.sherif@nationalsteel.com",
+    projects: projectsForClient10,
   },
 ];
