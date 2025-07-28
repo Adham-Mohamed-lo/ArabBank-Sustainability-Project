@@ -6,6 +6,8 @@ export const financingBySectorData = [
   { sector: "Healthcare", financing: 9100000 },
   { sector: "Education", financing: 5300000 },
   { sector: "Smart Agriculture", financing: 3300000 },
+  { sector: "Environmental", financing: 11500000 },
+  { sector: "Social", financing: 7800000 },
 ];
 
 export const financingByCompanySizeData = [
