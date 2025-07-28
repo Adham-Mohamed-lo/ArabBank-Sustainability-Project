@@ -561,11 +561,23 @@ export function AddProjectForm() {
                       </Alert>
                   )}
                 </div>
-                <FormItem>
-                  <FormLabel className="flex items-center gap-2">Supporting Documents <InfoTooltip info={formFieldsInfo.supportingDocuments} /></FormLabel>
-                  <FormControl><Input type="file" {...supportingDocumentsRef} /></FormControl>
-                  <FormMessage />
-                </FormItem>
+                <FormField
+                  control={form.control}
+                  name="supportingDocuments"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2">Supporting Documents <InfoTooltip info={formFieldsInfo.supportingDocuments} /></FormLabel>
+                      <FormControl>
+                        <Input
+                          type="file"
+                          accept=".pdf,.xls,.xlsx,application/pdf,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                          {...supportingDocumentsRef}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </AccordionContent>
             </AccordionItem>
            )}

@@ -1,7 +1,22 @@
 import { z } from 'zod';
 
-const MAX_FILE_SIZE = 5000000; // 5MB
-const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "application/pdf", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ACCEPTED_FILE_TYPES = [
+  "application/pdf", 
+  "application/vnd.ms-excel", 
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+];
+const ACCEPTED_FILE_TYPES_STRING = ".pdf, .xls, .xlsx";
+
+const fileSchema = z
+  .any()
+  .refine((files) => !files || files.length === 0 || files?.[0], "File is required.")
+  .refine((files) => !files || files.length === 0 || files?.[0]?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
+  .refine(
+    (files) => !files || files.length === 0 || ACCEPTED_FILE_TYPES.includes(files?.[0]?.type),
+    `Only ${ACCEPTED_FILE_TYPES_STRING} files are accepted.`
+  )
+  .optional();
 
 
 export const newProjectSchema = z.object({
@@ -37,12 +52,7 @@ export const newProjectSchema = z.object({
   impactIndicators: z.string().optional(),
   
   // Optional file upload
-  supportingDocuments: z.any()
-    .refine((files) => files?.length == 0 || files?.[0]?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
-    .refine(
-      (files) => files?.length == 0 || ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
-      ".jpg, .jpeg, .png, .webp, .pdf, and .xls/.xlsx files are accepted."
-    ).optional(),
+  supportingDocuments: fileSchema,
     
 }).superRefine((data, ctx) => {
     if (data.isSustainabilityProject) {
