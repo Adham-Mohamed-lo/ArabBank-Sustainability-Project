@@ -9,8 +9,7 @@ export const financingBySectorData = [
 ];
 
 export const financingByCompanySizeData = [
-    { companySize: "Micro", financing: 4000000 },
-    { companySize: "Small", financing: 15000000 },
+    { companySize: "Small", financing: 19000000 },
     { companySize: "Medium", financing: 20000000 },
     { companySize: "Large", financing: 6200000 },
 ];
@@ -19,6 +18,11 @@ export const financingBySustainabilityType = [
   { type: "Environmental", financing: 27800000 },
   { type: "Social", financing: 17400000 },
 ]
+
+export const financingByCbamData = [
+  { type: "CBAM Affected", financing: 11500000 },
+  { type: "Not Affected", financing: 33731890 },
+];
 
 export const COLORS = ["#0056b3", "#007bff", "#F39C12", "#8E44AD", "#2ECC71"];
 

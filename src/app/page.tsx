@@ -1,10 +1,10 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { DollarSign, Banknote, Activity, CheckCircle2, Users } from "lucide-react";
+import { DollarSign, Banknote, Activity, CheckCircle2, Users, ShieldAlert } from "lucide-react";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Pie, PieChart, Cell } from "recharts";
-import { financingBySectorData, financingByCompanySizeData, COLORS, financingBySustainabilityType } from "@/lib/data";
+import { financingBySectorData, financingByCompanySizeData, COLORS, financingBySustainabilityType, financingByCbamData } from "@/lib/data";
 
 const chartConfigSector = {
   financing: {
@@ -31,6 +31,16 @@ const chartConfigSustain = {
     label: "Financing (EGP)",
   },
   ...financingBySustainabilityType.reduce((acc, entry) => {
+    acc[entry.type] = { label: entry.type };
+    return acc;
+  }, {}),
+};
+
+const chartConfigCbam = {
+  financing: {
+    label: "Financing (EGP)",
+  },
+  ...financingByCbamData.reduce((acc, entry) => {
     acc[entry.type] = { label: entry.type };
     return acc;
   }, {}),
@@ -154,8 +164,8 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </div>
-      <div className="grid gap-4 md:grid-cols-1">
-        <Card>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+        <Card className="lg:col-span-4">
           <CardHeader>
             <CardTitle>Financing by Sustainability Type</CardTitle>
             <CardDescription>
@@ -175,6 +185,30 @@ export default function DashboardPage() {
               </PieChart>
             </ChartContainer>
           </CardContent>
+        </Card>
+        <Card className="lg:col-span-3">
+            <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                    CBAM Affected Financing
+                    <ShieldAlert className="h-5 w-5 text-muted-foreground" />
+                </CardTitle>
+                <CardDescription>
+                    Financing for projects potentially affected by the Carbon Border Adjustment Mechanism.
+                </CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ChartContainer config={chartConfigCbam} className="h-[250px] w-full">
+                    <PieChart>
+                        <ChartTooltip content={<ChartTooltipContent nameKey="financing" hideLabel />} />
+                        <Pie data={financingByCbamData} dataKey="financing" nameKey="type" cx="50%" cy="50%" outerRadius={80}>
+                            {financingByCbamData.map((entry, index) => (
+                                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                            ))}
+                        </Pie>
+                        <ChartLegend content={<ChartLegendContent nameKey="type" />} />
+                    </PieChart>
+                </ChartContainer>
+            </CardContent>
         </Card>
       </div>
     </div>

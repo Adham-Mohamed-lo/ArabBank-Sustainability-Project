@@ -105,7 +105,7 @@ export function ClientList({ clients }: ClientListProps) {
   
   const sectors = ['الكل', ...Array.from(new Set(clients.map(c => c.sector)))];
   const companyTypes = ['الكل', ...Array.from(new Set(clients.map(c => c.companyType)))];
-  const companySizes = ['الكل', ...Array.from(new Set(clients.map(c => c.companySize)))];
+  const companySizes = ['الكل', 'صغير', 'متوسط', 'كبير'];
 
   const handleRowClick = (client: Client) => {
     setSelectedClient(client);

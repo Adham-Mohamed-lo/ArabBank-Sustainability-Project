@@ -204,7 +204,6 @@ export function AddProjectForm() {
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl><SelectTrigger><SelectValue placeholder="Select company size" /></SelectTrigger></FormControl>
                     <SelectContent>
-                      <SelectItem value="متناهي الصغر">متناهي الصغر</SelectItem>
                       <SelectItem value="صغير">صغير</SelectItem>
                       <SelectItem value="متوسط">متوسط</SelectItem>
                       <SelectItem value="كبير">كبير</SelectItem>

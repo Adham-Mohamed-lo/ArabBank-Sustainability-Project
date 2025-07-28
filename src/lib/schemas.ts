@@ -6,7 +6,7 @@ export const newProjectSchema = z.object({
   unifiedCommercialRegNo: z.string().length(18, "Must be exactly 18 digits."),
   companyType: z.enum(["صناعي", "خدمي", "مقاول"]),
   sector: z.enum(["عام", "خاص"]),
-  companySize: z.enum(["متناهي الصغر", "صغير", "متوسط", "كبير"]),
+  companySize: z.enum(["صغير", "متوسط", "كبير"]),
   isicCodeL4: z.string().min(1, "ISIC Code is required."),
 
   // Section 2: Financing Details
