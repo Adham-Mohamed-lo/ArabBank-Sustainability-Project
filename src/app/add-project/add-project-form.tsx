@@ -71,6 +71,20 @@ const formFieldsInfo = {
 const DEBOUNCE_DELAY = 1000;
 const LOCAL_STORAGE_KEY = "newProjectFormDraft";
 
+const environmentalAxes = [
+  { value: "الطاقة المتجددة", label: "الطاقة المتجددة" },
+  { value: "المياه", label: "المياه" },
+  { value: "المخلفات", label: "المخلفات" },
+  { value: "الزراعة الذكية", label: "الزراعة الذكية" },
+];
+
+const socialAxes = [
+  { value: "الصحة", label: "الصحة" },
+  { value: "التعليم", label: "التعليم" },
+];
+
+const allAxes = [...environmentalAxes, ...socialAxes];
+
 export function AddProjectForm() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
@@ -92,6 +106,14 @@ export function AddProjectForm() {
 
   const watchedValues = form.watch();
   const isSustainabilityProject = form.watch("isSustainabilityProject");
+  const envSocialClassification = form.watch("environmentalSocialClassification");
+
+  const sustainabilityAxesOptions = React.useMemo(() => {
+    if (envSocialClassification === "بيئي") return environmentalAxes;
+    if (envSocialClassification === "اجتماعي") return socialAxes;
+    if (envSocialClassification === "كلاهما") return allAxes;
+    return [];
+  }, [envSocialClassification]);
 
   const handleFetchSuggestions = useCallback(async () => {
     const { sector, purposeOfFinancing } = form.getValues();
@@ -378,18 +400,32 @@ export function AddProjectForm() {
             <AccordionItem value="item-3">
               <AccordionTrigger className="text-xl font-semibold">Sustainability Details</AccordionTrigger>
               <AccordionContent className="grid md:grid-cols-2 gap-6 pt-4">
+                <FormField name="environmentalSocialClassification" control={form.control} render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2">Environmental/Social Classification <InfoTooltip info={formFieldsInfo.environmentalSocialClassification} /></FormLabel>
+                    <Select onValueChange={(value) => {
+                      field.onChange(value);
+                      form.setValue("sustainabilityAxis", ""); // Reset axis on change
+                    }} defaultValue={field.value}>
+                      <FormControl><SelectTrigger><SelectValue placeholder="Select classification" /></SelectTrigger></FormControl>
+                      <SelectContent>
+                        <SelectItem value="بيئي">بيئي</SelectItem>
+                        <SelectItem value="اجتماعي">اجتماعي</SelectItem>
+                        <SelectItem value="كلاهما">كلاهما</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )} />
                 <FormField name="sustainabilityAxis" control={form.control} render={({ field }) => (
                   <FormItem>
                     <FormLabel className="flex items-center gap-2">Sustainability Axis <InfoTooltip info={formFieldsInfo.sustainabilityAxis} /></FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <Select onValueChange={field.onChange} value={field.value} disabled={!envSocialClassification}>
                       <FormControl><SelectTrigger><SelectValue placeholder="Select axis" /></SelectTrigger></FormControl>
                       <SelectContent>
-                        <SelectItem value="الطاقة المتجددة">الطاقة المتجددة</SelectItem>
-                        <SelectItem value="المياه">المياه</SelectItem>
-                        <SelectItem value="المخلفات">المخلفات</SelectItem>
-                        <SelectItem value="الصحة">الصحة</SelectItem>
-                        <SelectItem value="التعليم">التعليم</SelectItem>
-                        <SelectItem value="الزراعة الذكية">الزراعة الذكية</SelectItem>
+                        {sustainabilityAxesOptions.map(axis => (
+                          <SelectItem key={axis.value} value={axis.value}>{axis.label}</SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                     <FormMessage />
@@ -399,20 +435,6 @@ export function AddProjectForm() {
                   <FormItem>
                     <FormLabel className="flex items-center gap-2">Purpose of Financing <InfoTooltip info={formFieldsInfo.purposeOfFinancing} /></FormLabel>
                     <FormControl><Input placeholder="e.g., Solar panel installation" {...field} onBlur={handleFetchSuggestions} /></FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-                <FormField name="environmentalSocialClassification" control={form.control} render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">Environmental/Social Classification <InfoTooltip info={formFieldsInfo.environmentalSocialClassification} /></FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}>
-                      <FormControl><SelectTrigger><SelectValue placeholder="Select classification" /></SelectTrigger></FormControl>
-                      <SelectContent>
-                        <SelectItem value="بيئي">بيئي</SelectItem>
-                        <SelectItem value="اجتماعي">اجتماعي</SelectItem>
-                        <SelectItem value="كلاهما">كلاهما</SelectItem>
-                      </SelectContent>
-                    </Select>
                     <FormMessage />
                   </FormItem>
                 )} />
