@@ -109,7 +109,7 @@ const defaultFormValues: NewProjectFormValues = {
   environmentalSocialClassification: "",
   classificationMethod: "",
   impactIndicators: "",
-  supportingDocuments: null,
+  supportingDocuments: undefined,
 };
 
 export function AddProjectForm() {
@@ -127,6 +127,7 @@ export function AddProjectForm() {
   const isSustainabilityProject = form.watch("isSustainabilityProject");
   const exportsProducts = form.watch("exportsProducts");
   const envSocialClassification = form.watch("environmentalSocialClassification");
+  const supportingDocumentsRef = form.register("supportingDocuments");
 
   useEffect(() => {
     if (isSustainabilityProject) {
@@ -177,16 +178,25 @@ export function AddProjectForm() {
   }, [form]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const subscription = form.watch((value, { name, type }) => {
+      if (name !== 'supportingDocuments') { // Don't save file input to local storage
         try {
-            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(watchedValues));
+            const timer = setTimeout(() => {
+                const watchedValues = form.getValues();
+                const serializableValues = {
+                    ...watchedValues,
+                    supportingDocuments: undefined // Don't store file
+                };
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(serializableValues));
+            }, DEBOUNCE_DELAY);
+            return () => clearTimeout(timer);
         } catch(error) {
             console.error("Failed to save draft to local storage", error);
         }
-    }, DEBOUNCE_DELAY);
-
-    return () => clearTimeout(timer);
-  }, [watchedValues]);
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form]);
 
   function onSubmit(values: NewProjectFormValues) {
     console.log(values);
@@ -552,13 +562,11 @@ export function AddProjectForm() {
                       </Alert>
                   )}
                 </div>
-                <FormField name="supportingDocuments" control={form.control} render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center gap-2">Supporting Documents <InfoTooltip info={formFieldsInfo.supportingDocuments} /></FormLabel>
-                    <FormControl><Input type="file" {...field} /></FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )} />
+                <FormItem>
+                  <FormLabel className="flex items-center gap-2">Supporting Documents <InfoTooltip info={formFieldsInfo.supportingDocuments} /></FormLabel>
+                  <FormControl><Input type="file" {...supportingDocumentsRef} /></FormControl>
+                  <FormMessage />
+                </FormItem>
               </AccordionContent>
             </AccordionItem>
            )}

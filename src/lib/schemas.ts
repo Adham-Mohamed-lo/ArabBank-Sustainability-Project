@@ -1,5 +1,9 @@
 import { z } from 'zod';
 
+const MAX_FILE_SIZE = 5000000; // 5MB
+const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "application/pdf", "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"];
+
+
 export const newProjectSchema = z.object({
   // Section 1: Client Information
   companyName: z.string().min(1, "Company name is required."),
@@ -33,7 +37,13 @@ export const newProjectSchema = z.object({
   impactIndicators: z.string().optional(),
   
   // Optional file upload
-  supportingDocuments: z.any().optional(),
+  supportingDocuments: z.any()
+    .refine((files) => files?.length == 0 || files?.[0]?.size <= MAX_FILE_SIZE, `Max file size is 5MB.`)
+    .refine(
+      (files) => files?.length == 0 || ACCEPTED_IMAGE_TYPES.includes(files?.[0]?.type),
+      ".jpg, .jpeg, .png, .webp, .pdf, and .xls/.xlsx files are accepted."
+    ).optional(),
+    
 }).superRefine((data, ctx) => {
     if (data.isSustainabilityProject) {
         if (!data.sustainabilityAxis) {
