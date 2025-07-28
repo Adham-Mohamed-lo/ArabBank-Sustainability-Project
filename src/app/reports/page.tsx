@@ -1,7 +1,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Download } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Download, Upload } from "lucide-react";
 
 export default function ReportsPage() {
   return (
@@ -12,24 +13,44 @@ export default function ReportsPage() {
           Generate and download reports for analysis and regulatory submission.
         </p>
       </header>
-      <Card>
-        <CardHeader>
-          <CardTitle>Download Reports</CardTitle>
-          <CardDescription>
-            Generate and download reports in various formats.
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex flex-col sm:flex-row flex-wrap gap-4">
-          <Button>
-            <Download className="mr-2 h-4 w-4" />
-            Download Summary Report (PDF)
-          </Button>
-          <Button variant="secondary">
-            <Download className="mr-2 h-4 w-4" />
-            Export All Data (Excel)
-          </Button>
-        </CardContent>
-      </Card>
+      <div className="grid gap-8">
+        <Card>
+          <CardHeader>
+            <CardTitle>Download Reports</CardTitle>
+            <CardDescription>
+              Generate and download reports in various formats.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col sm:flex-row flex-wrap gap-4">
+            <Button>
+              <Download className="mr-2 h-4 w-4" />
+              Download Summary Report (PDF)
+            </Button>
+            <Button variant="secondary">
+              <Download className="mr-2 h-4 w-4" />
+              Export All Data (Excel)
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Upload Report</CardTitle>
+            <CardDescription>
+              Upload a previously generated report to add it to the database.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col sm:flex-row items-start gap-4">
+            <div className="flex-grow">
+              <Input type="file" />
+            </div>
+            <Button>
+              <Upload className="mr-2 h-4 w-4" />
+              Upload Report
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
