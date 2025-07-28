@@ -10,7 +10,8 @@ import {
   financingBySustainabilityType, 
   financingByCbamData,
   environmentalSectorsData,
-  socialSectorsData
+  socialSectorsData,
+  industrialSectorsData
 } from "@/lib/data";
 
 const chartConfigSize = {
@@ -58,6 +59,16 @@ const chartConfigSocialSectors = {
     label: "Financing (EGP)",
   },
   ...socialSectorsData.reduce((acc, entry) => {
+    acc[entry.sector] = { label: entry.sector };
+    return acc;
+  }, {}),
+};
+
+const chartConfigIndustrialSectors = {
+  financing: {
+    label: "Financing (EGP)",
+  },
+  ...industrialSectorsData.reduce((acc, entry) => {
     acc[entry.sector] = { label: entry.sector };
     return acc;
   }, {}),
@@ -128,7 +139,7 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Card>
           <CardHeader>
             <CardTitle>Financing by Environmental Sector</CardTitle>
@@ -184,6 +195,35 @@ export default function DashboardPage() {
                   content={<ChartTooltipContent indicator="dot" />}
                 />
                 <Bar dataKey="financing" fill="var(--color-chart-1)" radius={4} />
+              </BarChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Financing by Industrial Sector</CardTitle>
+             <CardDescription>
+              Financing issued for projects in key industrial sectors.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="pl-2">
+             <ChartContainer config={chartConfigIndustrialSectors} className="h-[300px] w-full">
+              <BarChart accessibilityLayer data={industrialSectorsData} margin={{ left: 10, right: 10 }}>
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="sector"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                />
+                 <YAxis 
+                  tickFormatter={(value) => `EGP ${Number(value) / 1000000}M`}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent indicator="dot" />}
+                />
+                <Bar dataKey="financing" fill="var(--color-chart-3)" radius={4} />
               </BarChart>
             </ChartContainer>
           </CardContent>

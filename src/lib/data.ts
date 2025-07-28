@@ -11,6 +11,15 @@ export const socialSectorsData = [
   { sector: "Education", financing: 5300000 },
 ];
 
+export const industrialSectorsData = [
+  { sector: "الكهرباء", financing: 15000000 },
+  { sector: "الأسمنت", financing: 9500000 },
+  { sector: "الأسمدة", financing: 7200000 },
+  { sector: "الحديد والصلب", financing: 11800000 },
+  { sector: "الألومنيوم", financing: 8500000 },
+  { sector: "الهيدروجين الأخضر", financing: 4000000 },
+];
+
 export const financingByCompanySizeData = [
     { companySize: "Small", financing: 19000000 },
     { companySize: "Medium", financing: 20000000 },
