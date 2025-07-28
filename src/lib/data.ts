@@ -1,19 +1,19 @@
 
 export const environmentalSectorsData = [
-  { sector: "Renewable Energy", financing: 8500000 },
-  { sector: "Water Management", financing: 3800000 },
+  { sector: "Renewable Energy", financing: 11000000 },
+  { sector: "Water Management", financing: 4800000 },
   { sector: "Waste Management", financing: 2100000 },
-  { sector: "Smart Agriculture", financing: 1600000 },
+  { sector: "Smart Agriculture", financing: 3600000 },
 ];
 
 export const socialSectorsData = [
-  { sector: "Healthcare", financing: 25000000 },
-  { sector: "Education", financing: 12000000 },
+  { sector: "Healthcare", financing: 50000000 },
+  { sector: "Education", financing: 22000000 },
 ];
 
 export const industrialSectorsData = [
     { sector: "Electricity", financing: 7500000 },
-    { sector: "Cement", financing: 4200000 },
+    { sector: "Cement", financing: 8200000 },
     { sector: "Fertilizers", financing: 3000000 },
     { sector: "Iron & Steel", financing: 6800000 },
     { sector: "Aluminum", financing: 2500000 },
@@ -21,19 +21,19 @@ export const industrialSectorsData = [
 ];
 
 export const financingByCompanySizeData = [
-    { companySize: "Small", financing: 5400000 },
-    { companySize: "Medium", financing: 15300000 },
-    { companySize: "Large", financing: 32300000 },
+    { companySize: "Small", financing: 12400000 },
+    { companySize: "Medium", financing: 35000000 },
+    { companySize: "Large", financing: 64200000 },
 ];
 
 export const financingBySustainabilityType = [
-  { type: "Environmental", financing: 16000000 },
-  { type: "Social", financing: 37000000 },
+  { type: "Environmental", financing: 41500000 },
+  { type: "Social", financing: 72000000 },
 ]
 
 export const financingByCbamData = [
-  { type: "CBAM Affected", financing: 25000000 },
-  { type: "Not Affected", financing: 28000000 },
+  { type: "CBAM Affected", financing: 55000000 },
+  { type: "Not Affected", financing: 58500000 },
 ];
 
 export const COLORS = ["#0056b3", "#007bff", "#F39C12", "#8E44AD", "#2ECC71"];
@@ -42,8 +42,8 @@ const projectsForClient1 = [
     {
       id: 101,
       purposeOfFinancing: "تركيب ألواح شمسية لسقف المصنع",
-      totalFinancingAmount: 3500000,
-      amountUsed: 3500000,
+      totalFinancingAmount: 7500000,
+      amountUsed: 7500000,
       currency: "جنيه مصري",
       typeOfFacility: "طويل الأجل",
       facilityClassification: "عامل",
@@ -60,8 +60,8 @@ const projectsForClient1 = [
     {
       id: 102,
       purposeOfFinancing: "تحديث نظام الإضاءة إلى نظام موفر للطاقة",
-      totalFinancingAmount: 1500000,
-      amountUsed: 1200000,
+      totalFinancingAmount: 3500000,
+      amountUsed: 2200000,
       currency: "جنيه مصري",
       typeOfFacility: "متوسط الأجل",
       facilityClassification: "عامل",
@@ -81,8 +81,8 @@ const projectsForClient2 = [
     {
         id: 201,
         purposeOfFinancing: "محطة معالجة مياه الصرف الصحي",
-        totalFinancingAmount: 1200000,
-        amountUsed: 1200000,
+        totalFinancingAmount: 4800000,
+        amountUsed: 4800000,
         currency: "جنيه مصري",
         typeOfFacility: "طويل الأجل",
         facilityClassification: "عامل",
@@ -102,8 +102,8 @@ const projectsForClient3 = [
     {
         id: 301,
         purposeOfFinancing: "تطوير مصنع الاسمنت لتقليل الانبعاثات",
-        totalFinancingAmount: 4200000,
-        amountUsed: 2000000,
+        totalFinancingAmount: 8200000,
+        amountUsed: 4000000,
         currency: "جنيه مصري",
         typeOfFacility: "طويل الأجل",
         facilityClassification: "عامل",
@@ -123,8 +123,8 @@ const projectsForClient4 = [
     {
         id: 401,
         purposeOfFinancing: "تجهيز مدارس بالتكنولوجيا الحديثة",
-        totalFinancingAmount: 12000000,
-        amountUsed: 5000000,
+        totalFinancingAmount: 22000000,
+        amountUsed: 15000000,
         currency: "جنيه مصري",
         typeOfFacility: "متوسط الأجل",
         facilityClassification: "عامل",
@@ -144,8 +144,8 @@ const projectsForClient5 = [
     {
         id: 501,
         purposeOfFinancing: "تطبيق أنظمة الري الذكي",
-        totalFinancingAmount: 1600000,
-        amountUsed: 1600000,
+        totalFinancingAmount: 3600000,
+        amountUsed: 3600000,
         currency: "جنيه مصري",
         typeOfFacility: "متوسط الأجل",
         facilityClassification: "عامل",
@@ -166,8 +166,8 @@ const projectsForClient6 = [
     {
         id: 601,
         purposeOfFinancing: "بناء جناح مستشفى جديد",
-        totalFinancingAmount: 25000000,
-        amountUsed: 10000000,
+        totalFinancingAmount: 50000000,
+        amountUsed: 20000000,
         currency: "جنيه مصري",
         typeOfFacility: "طويل الأجل",
         facilityClassification: "عامل",
