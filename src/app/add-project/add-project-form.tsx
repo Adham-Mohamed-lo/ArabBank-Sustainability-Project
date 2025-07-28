@@ -83,8 +83,6 @@ const socialAxes = [
   { value: "التعليم", label: "التعليم" },
 ];
 
-const allAxes = [...environmentalAxes, ...socialAxes];
-
 export function AddProjectForm() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
@@ -111,7 +109,6 @@ export function AddProjectForm() {
   const sustainabilityAxesOptions = React.useMemo(() => {
     if (envSocialClassification === "بيئي") return environmentalAxes;
     if (envSocialClassification === "اجتماعي") return socialAxes;
-    if (envSocialClassification === "كلاهما") return allAxes;
     return [];
   }, [envSocialClassification]);
 
@@ -411,7 +408,6 @@ export function AddProjectForm() {
                       <SelectContent>
                         <SelectItem value="بيئي">بيئي</SelectItem>
                         <SelectItem value="اجتماعي">اجتماعي</SelectItem>
-                        <SelectItem value="كلاهما">كلاهما</SelectItem>
                       </SelectContent>
                     </Select>
                     <FormMessage />

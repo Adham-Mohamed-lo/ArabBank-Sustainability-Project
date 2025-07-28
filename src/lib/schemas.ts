@@ -26,7 +26,7 @@ export const newProjectSchema = z.object({
   // Section 3: Sustainability Details (now conditional)
   sustainabilityAxis: z.string().optional(),
   purposeOfFinancing: z.string().optional(),
-  environmentalSocialClassification: z.enum(["بيئي", "اجتماعي", "كلاهما"]).optional(),
+  environmentalSocialClassification: z.enum(["بيئي", "اجتماعي"]).optional(),
   classificationMethod: z.enum(["نشاط الشركة", "نوع المشروع المحدد"]).optional(),
   impactIndicators: z.string().optional(),
   
