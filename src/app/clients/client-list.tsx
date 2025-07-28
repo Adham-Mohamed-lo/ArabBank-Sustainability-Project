@@ -249,8 +249,14 @@ export function ClientList({ clients }: ClientListProps) {
                         <div className="text-muted-foreground">إجمالي التمويل</div>
                         <div>{totalFinancing(selectedClient.projects).toLocaleString()} جنيه مصري</div>
                         
+                        <div className="text-muted-foreground">إجمالي المشاريع</div>
+                        <div>{selectedClient.projects.length}</div>
+
                         <div className="text-muted-foreground">المشاريع النشطة</div>
                         <div>{selectedClient.projects.filter(p => p.status === 'نشيط').length}</div>
+                        
+                        <div className="text-muted-foreground">المشاريع المكتملة</div>
+                        <div>{selectedClient.projects.filter(p => p.status === 'مكتمل').length}</div>
                      </div>
                 </div>
 
