@@ -87,6 +87,7 @@ export function AddProjectForm() {
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isLoadingSuggestions, setIsLoadingSuggestions] = useState(false);
   const { toast } = useToast();
+  const [activeAccordionItems, setActiveAccordionItems] = useState<string[]>(["item-1", "item-2"]);
 
   const form = useForm<NewProjectFormValues>({
     resolver: zodResolver(newProjectSchema),
@@ -105,6 +106,14 @@ export function AddProjectForm() {
   const watchedValues = form.watch();
   const isSustainabilityProject = form.watch("isSustainabilityProject");
   const envSocialClassification = form.watch("environmentalSocialClassification");
+
+  useEffect(() => {
+    if (isSustainabilityProject) {
+        setActiveAccordionItems((prev) => [...prev, "item-3"]);
+    } else {
+        setActiveAccordionItems((prev) => prev.filter((item) => item !== "item-3"));
+    }
+  }, [isSustainabilityProject]);
 
   const sustainabilityAxesOptions = React.useMemo(() => {
     if (envSocialClassification === "بيئي") return environmentalAxes;
@@ -172,7 +181,7 @@ export function AddProjectForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <Accordion type="multiple" defaultValue={["item-1", "item-2"]} className="w-full">
+        <Accordion type="multiple" value={activeAccordionItems} onValueChange={setActiveAccordionItems} className="w-full">
           <AccordionItem value="item-1">
             <AccordionTrigger className="text-xl font-semibold">Client Information</AccordionTrigger>
             <AccordionContent className="grid md:grid-cols-2 gap-6 pt-4">
