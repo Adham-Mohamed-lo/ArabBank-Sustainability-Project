@@ -1,11 +1,14 @@
 
-export const financingBySectorData = [
+export const environmentalSectorsData = [
   { sector: "Renewable Energy", financing: 12500000 },
   { sector: "Water Management", financing: 8200000 },
   { sector: "Waste Management", financing: 6800000 },
+  { sector: "Smart Agriculture", financing: 3300000 },
+];
+
+export const socialSectorsData = [
   { sector: "Healthcare", financing: 9100000 },
   { sector: "Education", financing: 5300000 },
-  { sector: "Smart Agriculture", financing: 3300000 },
 ];
 
 export const financingByCompanySizeData = [
@@ -161,3 +164,4 @@ export const mockClientData = [
     projects: [],
   },
 ];
+

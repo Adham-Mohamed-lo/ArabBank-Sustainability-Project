@@ -4,17 +4,14 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { DollarSign, Banknote, Activity, CheckCircle2, Users, ShieldAlert } from "lucide-react";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from "@/components/ui/chart";
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Pie, PieChart, Cell } from "recharts";
-import { financingBySectorData, financingByCompanySizeData, COLORS, financingBySustainabilityType, financingByCbamData } from "@/lib/data";
-
-const chartConfigSector = {
-  financing: {
-    label: "Financing (EGP)",
-  },
-  ...financingBySectorData.reduce((acc, entry) => {
-    acc[entry.sector] = { label: entry.sector };
-    return acc;
-  }, {}),
-};
+import { 
+  financingByCompanySizeData, 
+  COLORS, 
+  financingBySustainabilityType, 
+  financingByCbamData,
+  environmentalSectorsData,
+  socialSectorsData
+} from "@/lib/data";
 
 const chartConfigSize = {
   financing: {
@@ -42,6 +39,26 @@ const chartConfigCbam = {
   },
   ...financingByCbamData.reduce((acc, entry) => {
     acc[entry.type] = { label: entry.type };
+    return acc;
+  }, {}),
+};
+
+const chartConfigEnvSectors = {
+  financing: {
+    label: "Financing (EGP)",
+  },
+  ...environmentalSectorsData.reduce((acc, entry) => {
+    acc[entry.sector] = { label: entry.sector };
+    return acc;
+  }, {}),
+};
+
+const chartConfigSocialSectors = {
+  financing: {
+    label: "Financing (EGP)",
+  },
+  ...socialSectorsData.reduce((acc, entry) => {
+    acc[entry.sector] = { label: entry.sector };
     return acc;
   }, {}),
 };
@@ -111,24 +128,24 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="lg:col-span-4">
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-2">
+        <Card>
           <CardHeader>
-            <CardTitle>Financing by Sector</CardTitle>
+            <CardTitle>Financing by Environmental Sector</CardTitle>
             <CardDescription>
-              A breakdown of total financing issued across different sustainability sectors.
+              Financing issued for projects in key environmental sectors.
             </CardDescription>
           </CardHeader>
           <CardContent className="pl-2">
-            <ChartContainer config={chartConfigSector} className="h-[300px] w-full">
-              <BarChart accessibilityLayer data={financingBySectorData} margin={{ left: 10, right: 10 }}>
+            <ChartContainer config={chartConfigEnvSectors} className="h-[300px] w-full">
+              <BarChart accessibilityLayer data={environmentalSectorsData} margin={{ left: 10, right: 10 }}>
                 <CartesianGrid vertical={false} />
                 <XAxis
                   dataKey="sector"
                   tickLine={false}
                   tickMargin={10}
                   axisLine={false}
-                  tickFormatter={(value) => value.slice(0, 3)}
+                  tickFormatter={(value) => value.slice(0, 10)}
                 />
                  <YAxis 
                   tickFormatter={(value) => `EGP ${Number(value) / 1000000}M`}
@@ -137,23 +154,54 @@ export default function DashboardPage() {
                   cursor={false}
                   content={<ChartTooltipContent indicator="dot" />}
                 />
-                <Bar dataKey="financing" fill="var(--color-primary)" radius={4} />
+                <Bar dataKey="financing" fill="var(--color-chart-2)" radius={4} />
               </BarChart>
             </ChartContainer>
           </CardContent>
         </Card>
-        <Card className="lg:col-span-3">
+        <Card>
+          <CardHeader>
+            <CardTitle>Financing by Social Sector</CardTitle>
+             <CardDescription>
+              Financing issued for projects in key social sectors.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="pl-2">
+             <ChartContainer config={chartConfigSocialSectors} className="h-[300px] w-full">
+              <BarChart accessibilityLayer data={socialSectorsData} margin={{ left: 10, right: 10 }}>
+                <CartesianGrid vertical={false} />
+                <XAxis
+                  dataKey="sector"
+                  tickLine={false}
+                  tickMargin={10}
+                  axisLine={false}
+                />
+                 <YAxis 
+                  tickFormatter={(value) => `EGP ${Number(value) / 1000000}M`}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent indicator="dot" />}
+                />
+                <Bar dataKey="financing" fill="var(--color-chart-1)" radius={4} />
+              </BarChart>
+            </ChartContainer>
+          </CardContent>
+        </Card>
+      </div>
+       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+        <Card className="lg:col-span-2">
           <CardHeader>
             <CardTitle>Financing by Company Size</CardTitle>
              <CardDescription>
-              Distribution of financing among micro, small, medium, and large companies.
+              Distribution of financing among small, medium, and large companies.
             </CardDescription>
           </CardHeader>
           <CardContent>
              <ChartContainer config={chartConfigSize} className="h-[300px] w-full">
                 <PieChart>
                     <ChartTooltip content={<ChartTooltipContent nameKey="financing" hideLabel />} />
-                    <Pie data={financingByCompanySizeData} dataKey="financing" nameKey="companySize" cx="50%" cy="50%" outerRadius={100} >
+                    <Pie data={financingByCompanySizeData} dataKey="financing" nameKey="companySize" cx="50%" cy="50%" outerRadius={80} >
                         {financingByCompanySizeData.map((entry, index) => (
                             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                         ))}
@@ -163,9 +211,7 @@ export default function DashboardPage() {
             </ChartContainer>
           </CardContent>
         </Card>
-      </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="lg:col-span-4">
+        <Card className="lg:col-span-3">
           <CardHeader>
             <CardTitle>Financing by Sustainability Type</CardTitle>
             <CardDescription>
@@ -173,7 +219,7 @@ export default function DashboardPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={chartConfigSustain} className="h-[250px] w-full">
+            <ChartContainer config={chartConfigSustain} className="h-[300px] w-full">
               <PieChart>
                   <ChartTooltip content={<ChartTooltipContent nameKey="financing" hideLabel />} />
                   <Pie data={financingBySustainabilityType} dataKey="financing" nameKey="type" cx="50%" cy="50%" innerRadius={60} outerRadius={100} >
@@ -186,18 +232,18 @@ export default function DashboardPage() {
             </ChartContainer>
           </CardContent>
         </Card>
-        <Card className="lg:col-span-3">
+        <Card className="lg:col-span-2">
             <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                    CBAM Affected Financing
+                    CBAM Affected
                     <ShieldAlert className="h-5 w-5 text-muted-foreground" />
                 </CardTitle>
                 <CardDescription>
-                    Financing for projects potentially affected by the Carbon Border Adjustment Mechanism.
+                    Financing for projects potentially affected by CBAM.
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <ChartContainer config={chartConfigCbam} className="h-[250px] w-full">
+                <ChartContainer config={chartConfigCbam} className="h-[300px] w-full">
                     <PieChart>
                         <ChartTooltip content={<ChartTooltipContent nameKey="financing" hideLabel />} />
                         <Pie data={financingByCbamData} dataKey="financing" nameKey="type" cx="50%" cy="50%" outerRadius={80}>
