@@ -51,13 +51,15 @@ const formFieldsInfo = {
   sector: { en: "Specify if the company is a public or private entity.", ar: "حدد ما إذا كانت الشركة كيانًا عامًا أم خاصًا." },
   companySize: { en: "Classification based on Central Bank of Egypt (CBE) definitions.", ar: "التصنيف بناءً على تعريفات البنك المركزي المصري." },
   isicCodeL4: { en: "International Standard Industrial Classification code for the business activity.", ar: "رمز التصنيف الصناعي الدولي الموحد للنشاط التجاري." },
-  totalFinancingAmount: { en: "The total amount approved under the credit agreement.", ar: "المبلغ الإجمالي المعتمد بموجب اتفاقية الائتمan." },
+  exportsProducts: { en: "Does the company export products?", ar: "هل تقوم الشركة بتصدير المنتجات؟" },
+  transportsToEu: { en: "Does the company transport products to the European Union?", ar: "هل تقوم الشركة بنقل المنتجات إلى الاتحاد الأوروبي؟" },
+  totalFinancingAmount: { en: "The total amount approved under the credit agreement.", ar: "المبلغ الإجمالي المعتمد بموجب اتفاقية الائتمان." },
   amountUsed: { en: "The portion of financing that has been disbursed to date.", ar: "الجزء من التمويل الذي تم صرفه حتى تاريخه." },
   currency: { en: "Select the currency of the financing.", ar: "اختر عملة التمويل." },
   typeOfFacility: { en: "The term length of the financial facility.", ar: "مدة التسهيل المالي." },
   facilityClassification: { en: "Current status of the facility's performance.", ar: "الحالة الحالية لأداء التسهيل." },
   usageType: { en: "Specify the status of the facility usage.", ar: "حدد حالة استخدام التسهيل." },
-  dateOfCreditApproval: { en: "The official start date of the credit contract.", ar: "تاريخ البدء الرسمي لعقد الائتمan." },
+  dateOfCreditApproval: { en: "The official start date of the credit contract.", ar: "تاريخ البدء الرسمي لعقد الائتمان." },
   fundedUnderInitiative: { en: "e.g., GEFF, EPAP, CBE initiative, etc.", ar: "مثال: GEFF، EPAP، مبادرة البنك المركزي، إلخ." },
   environmentalConsultantUsed: { en: "Was a certified environmental consultant used to assess the project?", ar: "هل تم استخدام استشاري بيئي معتمد لتقييم المشروع؟" },
   sustainabilityAxis: { en: "Select the primary sustainability category for the project.", ar: "اختر فئة الاستدامة الرئيسية للمشروع." },
@@ -90,6 +92,8 @@ const defaultFormValues: NewProjectFormValues = {
   sector: "",
   companySize: "",
   isicCodeL4: "",
+  exportsProducts: false,
+  transportsToEu: false,
   totalFinancingAmount: 0,
   amountUsed: 0,
   currency: "",
@@ -121,6 +125,7 @@ export function AddProjectForm() {
 
   const watchedValues = form.watch();
   const isSustainabilityProject = form.watch("isSustainabilityProject");
+  const exportsProducts = form.watch("exportsProducts");
   const envSocialClassification = form.watch("environmentalSocialClassification");
 
   useEffect(() => {
@@ -130,6 +135,12 @@ export function AddProjectForm() {
         setActiveAccordionItems((prev) => prev.filter((item) => item !== "item-3"));
     }
   }, [isSustainabilityProject]);
+
+  useEffect(() => {
+    if (!exportsProducts) {
+      form.setValue("transportsToEu", false);
+    }
+  }, [exportsProducts, form]);
 
 
   const sustainabilityAxesOptions = React.useMemo(() => {
@@ -274,6 +285,34 @@ export function AddProjectForm() {
                   <FormMessage />
                 </FormItem>
               )} />
+               <FormField name="exportsProducts" control={form.control} render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                    <div className="space-y-0.5">
+                        <FormLabel className="text-base flex items-center gap-2">Exports Products? <InfoTooltip info={formFieldsInfo.exportsProducts} /></FormLabel>
+                    </div>
+                    <FormControl>
+                        <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                        />
+                    </FormControl>
+                </FormItem>
+              )} />
+              {exportsProducts && (
+                <FormField name="transportsToEu" control={form.control} render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                      <div className="space-y-0.5">
+                          <FormLabel className="text-base flex items-center gap-2">Transports to EU? <InfoTooltip info={formFieldsInfo.transportsToEu} /></FormLabel>
+                      </div>
+                      <FormControl>
+                          <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                          />
+                      </FormControl>
+                  </FormItem>
+                )} />
+              )}
             </AccordionContent>
           </AccordionItem>
           

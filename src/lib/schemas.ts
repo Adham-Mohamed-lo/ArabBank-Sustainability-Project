@@ -8,6 +8,8 @@ export const newProjectSchema = z.object({
   sector: z.enum(["عام", "خاص"], { required_error: "Sector is required."}),
   companySize: z.enum(["صغير", "متوسط", "كبير"], { required_error: "Company size is required."}),
   isicCodeL4: z.string().min(1, "ISIC Code is required."),
+  exportsProducts: z.boolean().default(false),
+  transportsToEu: z.boolean().default(false),
 
   // Section 2: Financing Details
   totalFinancingAmount: z.coerce.number().positive("Amount must be positive."),
