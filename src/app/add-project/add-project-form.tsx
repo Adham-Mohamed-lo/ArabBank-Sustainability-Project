@@ -52,7 +52,7 @@ const formFieldsInfo = {
   companySize: { en: "Classification based on Central Bank of Egypt (CBE) definitions.", ar: "التصنيف بناءً على تعريفات البنك المركزي المصري." },
   isicCodeL4: { en: "International Standard Industrial Classification code for the business activity.", ar: "رمز التصنيف الصناعي الدولي الموحد للنشاط التجاري." },
   exportsProducts: { en: "Does the company export products?", ar: "هل تقوم الشركة بتصدير المنتجات؟" },
-  transportsToEu: { en: "Does the company transport products to the European Union?", ar: "هل تقوم الشركة بنقل المنتجات إلى الاتحاد الأوروبي؟" },
+  transportsToEu: { en: "Does the company export products to the European Union?", ar: "هل تقوم الشركة بتصدير المنتجات إلى الاتحاد الأوروبي؟" },
   totalFinancingAmount: { en: "The total amount approved under the credit agreement.", ar: "المبلغ الإجمالي المعتمد بموجب اتفاقية الائتمان." },
   amountUsed: { en: "The portion of financing that has been disbursed to date.", ar: "الجزء من التمويل الذي تم صرفه حتى تاريخه." },
   currency: { en: "Select the currency of the financing.", ar: "اختر عملة التمويل." },
@@ -331,7 +331,7 @@ export function AddProjectForm() {
                 <FormField name="transportsToEu" control={form.control} render={({ field }) => (
                   <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                       <div className="space-y-0.5">
-                          <FormLabel className="text-base flex items-center gap-2">Transports to EU? <InfoTooltip info={formFieldsInfo.transportsToEu} /></FormLabel>
+                          <FormLabel className="text-base flex items-center gap-2">Exports to EU? <InfoTooltip info={formFieldsInfo.transportsToEu} /></FormLabel>
                       </div>
                       <FormControl>
                           <Switch
