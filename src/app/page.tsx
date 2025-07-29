@@ -220,27 +220,6 @@ export default function DashboardPage() {
           </CardContent>
         </Card>
         <Card>
-          <CardHeader>
-            <CardTitle>Financing by Sustainability Type</CardTitle>
-            <CardDescription>
-              A high-level breakdown of financing for Environmental vs. Social projects.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <ChartContainer config={chartConfigSustain} className="h-[300px] w-full">
-              <PieChart>
-                  <ChartTooltip content={<ChartTooltipContent nameKey="financing" hideLabel />} />
-                  <Pie data={financingBySustainabilityType} dataKey="financing" nameKey="type" cx="50%" cy="50%" innerRadius={60} outerRadius={100} >
-                      {financingBySustainabilityType.map((entry, index) => (
-                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                  </Pie>
-                  <ChartLegend content={<ChartLegendContent nameKey="type" />} />
-              </PieChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-        <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                     CBAM-Affected Sectors
@@ -269,13 +248,33 @@ export default function DashboardPage() {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <ChartLegend content={<ChartLegendContent nameKey="sector" />} />
+                  <ChartLegend content={<ChartLegendContent nameKey="sector" className="flex-wrap" />} />
                 </PieChart>
               </ChartContainer>
             </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <CardTitle>Financing by Sustainability Type</CardTitle>
+            <CardDescription>
+              A high-level breakdown of financing for Environmental vs. Social projects.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfigSustain} className="h-[300px] w-full">
+              <PieChart>
+                  <ChartTooltip content={<ChartTooltipContent nameKey="financing" hideLabel />} />
+                  <Pie data={financingBySustainabilityType} dataKey="financing" nameKey="type" cx="50%" cy="50%" innerRadius={60} outerRadius={100} >
+                      {financingBySustainabilityType.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                  </Pie>
+                  <ChartLegend content={<ChartLegendContent nameKey="type" />} />
+              </PieChart>
+            </ChartContainer>
+          </CardContent>
         </Card>
       </div>
     </div>
   );
 }
-

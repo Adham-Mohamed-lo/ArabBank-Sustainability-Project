@@ -15,7 +15,7 @@ export const industrialSectorsData = [
     { sector: "Electricity", financing: 75000000 },
     { sector: "Cement", financing: 82000000 },
     { sector: "Fertilizers", financing: 30000000 },
-    { sector: "Iron & Steel", financing: 68000000 + 95000000 },
+    { sector: "Steel", financing: 68000000 + 95000000 },
     { sector: "Aluminum", financing: 25000000 },
     { sector: "Green Hydrogen", financing: 10000000 },
 ];
@@ -36,7 +36,7 @@ export const financingByCbamData = [
   { type: "Not Affected", financing: 585000000 + 42000000 + 55000000 + 350000000 + 180000000},
 ];
 
-export const COLORS = ["#0056b3", "#007bff", "#F39C12", "#8E44AD", "#2ECC71"];
+export const COLORS = ["#0056b3", "#007bff", "#F39C12", "#8E44AD", "#2ECC71", "#d35400"];
 
 const projectsForClient1 = [
     {
