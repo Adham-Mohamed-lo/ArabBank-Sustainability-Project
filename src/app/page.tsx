@@ -261,28 +261,27 @@ export default function DashboardPage() {
                 </CardDescription>
             </CardHeader>
             <CardContent>
-                <ChartContainer config={chartConfigIndustrialSectors} className="h-[300px] w-full">
-                  <BarChart accessibilityLayer data={industrialSectorsData} layout="vertical" margin={{ left: 10, right: 10 }}>
-                    <CartesianGrid horizontal={false} />
-                    <YAxis
-                      dataKey="sector"
-                      type="category"
-                      tickLine={false}
-                      tickMargin={10}
-                      axisLine={false}
-                      tickFormatter={(value) => value.slice(0, 10)}
-                    />
-                    <XAxis 
-                      type="number"
-                      tickFormatter={(value) => `EGP ${Number(value) / 1000000}M`}
-                    />
-                    <ChartTooltip
-                      cursor={false}
-                      content={<ChartTooltipContent indicator="dot" />}
-                    />
-                    <Bar dataKey="financing" fill="var(--color-chart-3)" radius={4} />
-                  </BarChart>
-                </ChartContainer>
+              <ChartContainer config={chartConfigIndustrialSectors} className="h-[300px] w-full">
+                <PieChart>
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent indicator="dot" />}
+                  />
+                  <Pie
+                    data={industrialSectorsData}
+                    dataKey="financing"
+                    nameKey="sector"
+                    cx="50%"
+                    cy="50%"
+                    outerRadius={80}
+                  >
+                    {industrialSectorsData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <ChartLegend content={<ChartLegendContent nameKey="sector" />} />
+                </PieChart>
+              </ChartContainer>
             </CardContent>
         </Card>
       </div>
