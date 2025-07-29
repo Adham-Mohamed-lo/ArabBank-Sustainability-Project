@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -8,7 +9,6 @@ import {
   financingByCompanySizeData, 
   COLORS, 
   financingBySustainabilityType, 
-  financingByCbamData,
   environmentalSectorsData,
   socialSectorsData,
   industrialSectorsData,
@@ -30,16 +30,6 @@ const chartConfigSustain = {
     label: "Financing (EGP)",
   },
   ...financingBySustainabilityType.reduce((acc, entry) => {
-    acc[entry.type] = { label: entry.type };
-    return acc;
-  }, {}),
-};
-
-const chartConfigCbam = {
-  financing: {
-    label: "Financing (EGP)",
-  },
-  ...financingByCbamData.reduce((acc, entry) => {
     acc[entry.type] = { label: entry.type };
     return acc;
   }, {}),
@@ -207,8 +197,8 @@ export default function DashboardPage() {
           </CardContent>
           </Card>
       </div>
-       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-        <Card className="lg:col-span-2">
+       <div className="grid gap-4 md:grid-cols-1 lg:grid-cols-3">
+        <Card>
           <CardHeader>
             <CardTitle>Financing by Company Size</CardTitle>
              <CardDescription>
@@ -229,7 +219,7 @@ export default function DashboardPage() {
             </ChartContainer>
           </CardContent>
         </Card>
-        <Card className="lg:col-span-3">
+        <Card>
           <CardHeader>
             <CardTitle>Financing by Sustainability Type</CardTitle>
             <CardDescription>
@@ -250,14 +240,14 @@ export default function DashboardPage() {
             </ChartContainer>
           </CardContent>
         </Card>
-        <Card className="lg:col-span-2">
+        <Card>
             <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                     CBAM-Affected Sectors
                     <ShieldAlert className="h-5 w-5 text-muted-foreground" />
                 </CardTitle>
                 <CardDescription>
-                    Financing for projects potentially affected by CBAM, broken down by industrial sector.
+                    Financing for projects potentially affected by CBAM regulations.
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -288,3 +278,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+
