@@ -36,7 +36,7 @@ export const financingByCbamData = [
   { type: "Not Affected", financing: 585000000 + 42000000 + 55000000 + 350000000 + 180000000},
 ];
 
-export const COLORS = ["#0056b3", "#007bff", "#F39C12", "#8E44AD", "#2ECC71", "#d35400"];
+export const COLORS = ["#0056b3", "#007bff", "#F39C12", "#8E44AD", "#d35400", "#2ECC71"];
 
 const projectsForClient1 = [
     {
