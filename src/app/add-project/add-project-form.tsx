@@ -228,6 +228,26 @@ export function AddProjectForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <FormField
+            control={form.control}
+            name="isSustainabilityProject"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                <div className="space-y-0.5">
+                  <FormLabel className="text-base flex items-center gap-2">
+                    Is this a Sustainability Project?
+                    <InfoTooltip info={formFieldsInfo.isSustainabilityProject} />
+                  </FormLabel>
+                </div>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
         <Accordion type="multiple" value={activeAccordionItems} onValueChange={setActiveAccordionItems} className="w-full">
           <AccordionItem value="item-1">
             <AccordionTrigger className="text-xl font-semibold">Client Information</AccordionTrigger>
@@ -455,27 +475,6 @@ export function AddProjectForm() {
               )} />
             </AccordionContent>
           </AccordionItem>
-
-          <FormField
-            control={form.control}
-            name="isSustainabilityProject"
-            render={({ field }) => (
-              <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                <div className="space-y-0.5">
-                  <FormLabel className="text-base flex items-center gap-2">
-                    Is this a Sustainability Project?
-                    <InfoTooltip info={formFieldsInfo.isSustainabilityProject} />
-                  </FormLabel>
-                </div>
-                <FormControl>
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
 
           {isSustainabilityProject && (
             <AccordionItem value="item-3">
